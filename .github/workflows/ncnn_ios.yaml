@@ -1,0 +1,21 @@
+name: ncnn_ios
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/ncnn_ios.yaml"
+      - "ncnn_ios/**"
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/ncnn_ios.yaml"
+      - "ncnn_ios/**"
+
+jobs:
+  build:
+    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
+    with:
+      flutter_channel: stable
+      flutter_version: 3.3.1
+      working_directory: ncnn_ios

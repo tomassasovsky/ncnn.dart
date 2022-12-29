@@ -1,0 +1,33 @@
+name: ncnn
+description: Native bridge to ncnn, a high-performance neural network inference framework optimized for the mobile platform.
+version: 0.1.0+1
+publish_to: none
+
+environment:
+  sdk: ">=2.18.0 <3.0.0"
+  flutter: ">=3.3.1"
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        default_package: ncnn_android
+      ios:
+        default_package: ncnn_ios
+
+dependencies:
+  flutter:
+    sdk: flutter
+  ncnn_android:
+    path: ../ncnn_android
+  ncnn_ios:
+    path: ../ncnn_ios
+  ncnn_platform_interface:
+    path: ../ncnn_platform_interface
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mocktail: ^0.3.0
+  plugin_platform_interface: ^2.0.0
+  very_good_analysis: ^3.0.2
