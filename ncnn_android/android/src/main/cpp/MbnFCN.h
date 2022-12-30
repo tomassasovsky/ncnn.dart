@@ -17,7 +17,8 @@
 
 class MbnFCN {
 public:
-    MbnFCN(AAssetManager *mgr, bool useGPU);
+    MbnFCN(AAssetManager *assetManager, const char *paramFilePath, const char *binFilePath,
+           bool useGPU);
     ~MbnFCN();
 
     ncnn::Mat detect_mbnfcn(JNIEnv *env, jobject image);

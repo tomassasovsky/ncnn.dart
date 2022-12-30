@@ -123,7 +123,7 @@ CMAKE_FIND_ROOT_PATH:UNINITIALIZED=C:\Users\Tomas\Documents\Work\sportsvisio\ncn
 CMAKE_INSTALL_PREFIX:PATH=C:/Program Files (x86)/yolov5
 
 //No help, variable specified on the command line.
-CMAKE_LIBRARY_OUTPUT_DIRECTORY:UNINITIALIZED=C:\Users\Tomas\Documents\Work\sportsvisio\ncnn\ncnn_android\android\build\intermediates\cmake\debug\obj\arm64-v8a
+CMAKE_LIBRARY_OUTPUT_DIRECTORY:UNINITIALIZED=C:\Users\Tomas\Documents\Work\sportsvisio\ncnn\ncnn\example\build\ncnn_android\intermediates\cmake\debug\obj\arm64-v8a
 
 //Path to a program.
 CMAKE_LINKER:FILEPATH=C:/Users/Tomas/AppData/Local/Android/sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/windows-x86_64/bin/aarch64-linux-android-ld.exe

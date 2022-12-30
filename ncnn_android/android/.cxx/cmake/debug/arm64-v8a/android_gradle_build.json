@@ -1,7 +1,7 @@
 {
   "stringTable": {
     "0": "C:/Users/Tomas/Documents/Work/sportsvisio/ncnn/ncnn_android/android/.cxx/cmake/debug/arm64-v8a",
-    "1": "--target=aarch64-none-linux-android24 --gcc-toolchain=C:/Users/Tomas/AppData/Local/Android/sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/windows-x86_64 --sysroot=C:/Users/Tomas/AppData/Local/Android/sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/windows-x86_64/sysroot -Dyolov5_EXPORTS -IC:/Users/Tomas/Documents/Work/sportsvisio/ncnn/ncnn_android/android/src/main/cpp/ocr -IC:/Users/Tomas/Documents/Work/sportsvisio/ncnn/ncnn_android/android/src/main/cpp/ncnnvulkan/arm64-v8a/include -IC:/Users/Tomas/Documents/Work/sportsvisio/ncnn/ncnn_android/android/src/main/cpp/opencv/include -isystem C:/Users/Tomas/Documents/Work/sportsvisio/ncnn/ncnn_android/android/src/main/cpp/ncnnvulkan/arm64-v8a/include/ncnn -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security -fopenmp -O0 -fno-limit-debug-info -fPIC -frtti -fexceptions"
+    "1": "--target=aarch64-none-linux-android24 --gcc-toolchain=C:/Users/Tomas/AppData/Local/Android/sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/windows-x86_64 --sysroot=C:/Users/Tomas/AppData/Local/Android/sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/windows-x86_64/sysroot -Dyolov5_EXPORTS -IC:/Users/Tomas/Documents/Work/sportsvisio/ncnn/ncnn_android/android/src/main/cpp/ncnnvulkan/arm64-v8a/include -IC:/Users/Tomas/Documents/Work/sportsvisio/ncnn/ncnn_android/android/src/main/cpp/opencv/include -isystem C:/Users/Tomas/Documents/Work/sportsvisio/ncnn/ncnn_android/android/src/main/cpp/ncnnvulkan/arm64-v8a/include/ncnn -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security -fopenmp -O0 -fno-limit-debug-info -fPIC -frtti -fexceptions"
   },
   "buildFiles": [
     "C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn_android\\android\\src\\main\\cpp\\CMakeLists.txt",
@@ -92,38 +92,18 @@
           "workingDirectoryOrdinal": 0
         },
         {
+          "src": "C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn_android\\android\\src\\main\\cpp\\YoloV7.cpp",
+          "flagsOrdinal": 1,
+          "workingDirectoryOrdinal": 0
+        },
+        {
           "src": "C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn_android\\android\\src\\main\\cpp\\jni_interface.cpp",
-          "flagsOrdinal": 1,
-          "workingDirectoryOrdinal": 0
-        },
-        {
-          "src": "C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn_android\\android\\src\\main\\cpp\\ocr\\NCNNDBNet.cpp",
-          "flagsOrdinal": 1,
-          "workingDirectoryOrdinal": 0
-        },
-        {
-          "src": "C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn_android\\android\\src\\main\\cpp\\ocr\\RRLib.cpp",
-          "flagsOrdinal": 1,
-          "workingDirectoryOrdinal": 0
-        },
-        {
-          "src": "C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn_android\\android\\src\\main\\cpp\\ocr\\ZUtil.cpp",
-          "flagsOrdinal": 1,
-          "workingDirectoryOrdinal": 0
-        },
-        {
-          "src": "C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn_android\\android\\src\\main\\cpp\\ocr\\clipper.cpp",
-          "flagsOrdinal": 1,
-          "workingDirectoryOrdinal": 0
-        },
-        {
-          "src": "C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn_android\\android\\src\\main\\cpp\\ocr\\ocr.cpp",
           "flagsOrdinal": 1,
           "workingDirectoryOrdinal": 0
         }
       ],
       "headers": [],
-      "output": "C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn_android\\android\\build\\intermediates\\cmake\\debug\\obj\\arm64-v8a\\libyolov5.so",
+      "output": "C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn\\example\\build\\ncnn_android\\intermediates\\cmake\\debug\\obj\\arm64-v8a\\libyolov5.so",
       "runtimeFiles": [
         "C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn_android\\android\\src\\main\\cpp\\opencv\\arm64-v8a\\libopencv_java4.so"
       ]

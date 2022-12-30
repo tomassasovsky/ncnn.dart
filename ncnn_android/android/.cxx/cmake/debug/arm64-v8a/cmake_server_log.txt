@@ -45,7 +45,7 @@ CMAKE SERVER: {
     "-DCMAKE_ANDROID_ARCH_ABI\u003darm64-v8a",
     "-DCMAKE_ANDROID_NDK\u003dC:\\Users\\Tomas\\AppData\\Local\\Android\\sdk\\ndk\\21.1.6352462",
     "-DCMAKE_EXPORT_COMPILE_COMMANDS\u003dON",
-    "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY\u003dC:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn_android\\android\\build\\intermediates\\cmake\\debug\\obj\\arm64-v8a",
+    "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY\u003dC:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn\\example\\build\\ncnn_android\\intermediates\\cmake\\debug\\obj\\arm64-v8a",
     "-DCMAKE_MAKE_PROGRAM\u003dC:\\Users\\Tomas\\AppData\\Local\\Android\\sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe",
     "-DCMAKE_SYSTEM_NAME\u003dAndroid",
     "-DCMAKE_SYSTEM_VERSION\u003d26",
@@ -469,110 +469,6 @@ CMAKE SERVER:
 
 CMAKE SERVER: [== "CMake Server" ==[
 
-CMAKE SERVER: {"cookie":"","inReplyTo":"","name":"dirty","type":"signal"}
-
-CMAKE SERVER: ]== "CMake Server" ==]
-
-CMAKE SERVER: 
-
-CMAKE SERVER: [== "CMake Server" ==[
-
-CMAKE SERVER: {"cookie":"","inReplyTo":"","name":"fileChange","path":"C:/Users/Tomas/Documents/Work/sportsvisio/ncnn/ncnn_android/android/src/main/cpp/CMakeLists.txt","properties":["change"],"type":"signal"}
-
-CMAKE SERVER: ]== "CMake Server" ==]
-
-CMAKE SERVER: 
-
-CMAKE SERVER: [== "CMake Server" ==[
-
-CMAKE SERVER: {"cookie":"","inReplyTo":"","name":"fileChange","path":"C:/Users/Tomas/Documents/Work/sportsvisio/ncnn/ncnn_android/android/src/main/cpp/ncnnvulkan/arm64-v8a/lib/cmake/ncnn/ncnnConfig.cmake","properties":["change"],"type":"signal"}
-
-CMAKE SERVER: ]== "CMake Server" ==]
-
-CMAKE SERVER: 
-
-CMAKE SERVER: [== "CMake Server" ==[
-
-CMAKE SERVER: {"cookie":"","inReplyTo":"","name":"fileChange","path":"C:/Users/Tomas/Documents/Work/sportsvisio/ncnn/ncnn_android/android/src/main/cpp/ncnnvulkan/arm64-v8a/lib/cmake/ncnn/ncnn.cmake","properties":["change"],"type":"signal"}
-
-CMAKE SERVER: ]== "CMake Server" ==]
-
-CMAKE SERVER: 
-
-CMAKE SERVER: [== "CMake Server" ==[
-
-CMAKE SERVER: {"cookie":"","inReplyTo":"","name":"fileChange","path":"C:/Users/Tomas/Documents/Work/sportsvisio/ncnn/ncnn_android/android/src/main/cpp/ncnnvulkan/arm64-v8a/lib/cmake/ncnn/ncnn-release.cmake","properties":["change"],"type":"signal"}
-
-CMAKE SERVER: ]== "CMake Server" ==]
-
-CMAKE SERVER: 
-
-CMAKE SERVER: [== "CMake Server" ==[
-
-CMAKE SERVER: {"cookie":"","inReplyTo":"","name":"fileChange","path":"C:/Users/Tomas/Documents/Work/sportsvisio/ncnn/ncnn_android/android/src/main/cpp/ncnnvulkan/arm64-v8a/lib/cmake/OSDependentTargets.cmake","properties":["change"],"type":"signal"}
-
-CMAKE SERVER: ]== "CMake Server" ==]
-
-CMAKE SERVER: 
-
-CMAKE SERVER: [== "CMake Server" ==[
-
-CMAKE SERVER: {"cookie":"","inReplyTo":"","name":"fileChange","path":"C:/Users/Tomas/Documents/Work/sportsvisio/ncnn/ncnn_android/android/src/main/cpp/ncnnvulkan/arm64-v8a/lib/cmake/OSDependentTargets-release.cmake","properties":["change"],"type":"signal"}
-
-CMAKE SERVER: ]== "CMake Server" ==]
-
-CMAKE SERVER: 
-
-CMAKE SERVER: [== "CMake Server" ==[
-
-CMAKE SERVER: {"cookie":"","inReplyTo":"","name":"fileChange","path":"C:/Users/Tomas/Documents/Work/sportsvisio/ncnn/ncnn_android/android/src/main/cpp/ncnnvulkan/arm64-v8a/lib/cmake/OGLCompilerTargets.cmake","properties":["change"],"type":"signal"}
-
-CMAKE SERVER: ]== "CMake Server" ==]
-
-CMAKE SERVER: 
-
-CMAKE SERVER: [== "CMake Server" ==[
-
-CMAKE SERVER: {"cookie":"","inReplyTo":"","name":"fileChange","path":"C:/Users/Tomas/Documents/Work/sportsvisio/ncnn/ncnn_android/android/src/main/cpp/ncnnvulkan/arm64-v8a/lib/cmake/OGLCompilerTargets-release.cmake","properties":["change"],"type":"signal"}
-
-CMAKE SERVER: ]== "CMake Server" ==]
-
-CMAKE SERVER: 
-
-CMAKE SERVER: [== "CMake Server" ==[
-
-CMAKE SERVER: {"cookie":"","inReplyTo":"","name":"fileChange","path":"C:/Users/Tomas/Documents/Work/sportsvisio/ncnn/ncnn_android/android/src/main/cpp/ncnnvulkan/arm64-v8a/lib/cmake/glslangTargets-release.cmake","properties":["change"],"type":"signal"}
-
-CMAKE SERVER: ]== "CMake Server" ==]
-
-CMAKE SERVER: 
-
-CMAKE SERVER: [== "CMake Server" ==[
-
-CMAKE SERVER: {"cookie":"","inReplyTo":"","name":"fileChange","path":"C:/Users/Tomas/Documents/Work/sportsvisio/ncnn/ncnn_android/android/src/main/cpp/ncnnvulkan/arm64-v8a/lib/cmake/glslangTargets.cmake","properties":["change"],"type":"signal"}
-
-CMAKE SERVER: ]== "CMake Server" ==]
-
-CMAKE SERVER: 
-
-CMAKE SERVER: [== "CMake Server" ==[
-
-CMAKE SERVER: {"cookie":"","inReplyTo":"","name":"fileChange","path":"C:/Users/Tomas/Documents/Work/sportsvisio/ncnn/ncnn_android/android/src/main/cpp/ncnnvulkan/arm64-v8a/lib/cmake/SPIRVTargets-release.cmake","properties":["change"],"type":"signal"}
-
-CMAKE SERVER: ]== "CMake Server" ==]
-
-CMAKE SERVER: 
-
-CMAKE SERVER: [== "CMake Server" ==[
-
-CMAKE SERVER: {"cookie":"","inReplyTo":"","name":"fileChange","path":"C:/Users/Tomas/Documents/Work/sportsvisio/ncnn/ncnn_android/android/src/main/cpp/ncnnvulkan/arm64-v8a/lib/cmake/SPIRVTargets.cmake","properties":["change"],"type":"signal"}
-
-CMAKE SERVER: ]== "CMake Server" ==]
-
-CMAKE SERVER: 
-
-CMAKE SERVER: [== "CMake Server" ==[
-
 CMAKE SERVER: {"buildFiles":[{"isCMake":true,"isTemporary":false,"sources":["C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineSystem.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Determine.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeSystem.cmake.in","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeSystemSpecificInitialize.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Initialize.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCCompiler.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCompiler.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Determine-C.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android/Determine-Compiler.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeFindBinUtils.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-FindBinUtils.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCCompiler.cmake.in","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCXXCompiler.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCompiler.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Determine-CXX.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android/Determine-Compiler.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeFindBinUtils.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-FindBinUtils.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCXXCompiler.cmake.in","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeSystemSpecificInformation.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeGenericSystem.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Linux.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/UnixPaths.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCInformation.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeLanguageInformation.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-C.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/CMakeCommonCompilerMacros.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/GNU.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/CMakeCommonCompilerMacros.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Clang-C.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Clang.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCommonLanguageInclude.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeTestCCompiler.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeTestCompilerCommon.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCompilerABI.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeParseImplicitLinkInfo.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCCompilerABI.c","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCompileFeatures.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Internal/FeatureTesting.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-C-FeatureTests.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-C-FeatureTests.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-C-FeatureTests.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCCompiler.cmake.in","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCXXInformation.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeLanguageInformation.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-CXX.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Clang-CXX.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Clang.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCommonLanguageInclude.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeTestCXXCompiler.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeTestCompilerCommon.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCompilerABI.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeParseImplicitLinkInfo.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCXXCompilerABI.cpp","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCompileFeatures.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Internal/FeatureTesting.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-CXX-FeatureTests.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-CXX-TestableFeatures.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-CXX-FeatureTests.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-CXX-TestableFeatures.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-CXX-FeatureTests.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-CXX-TestableFeatures.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-CXX-FeatureTests.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-CXX-TestableFeatures.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCXXCompiler.cmake.in","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/FindOpenMP.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeParseImplicitLinkInfo.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/FindPackageHandleStandardArgs.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/FindPackageMessage.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/FindPackageHandleStandardArgs.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/FindPackageMessage.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/FindThreads.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CheckLibraryExists.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CheckSymbolExists.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CheckIncludeFile.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CheckIncludeFile.c.in","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeConfigurableFile.in","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/FindPackageHandleStandardArgs.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/FindPackageMessage.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/FindVulkan.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/FindPackageHandleStandardArgs.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/FindPackageMessage.cmake"]},{"isCMake":false,"isTemporary":false,"sources":["CMakeLists.txt","C:/Users/Tomas/AppData/Local/Android/sdk/ndk/21.1.6352462/build/cmake/android.toolchain.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/ndk/21.1.6352462/build/cmake/platforms.cmake","C:/Users/Tomas/AppData/Local/Android/sdk/ndk/21.1.6352462/build/cmake/android.toolchain.cmake","ncnnvulkan/arm64-v8a/lib/cmake/ncnn/ncnnConfig.cmake","ncnnvulkan/arm64-v8a/lib/cmake/OSDependentTargets.cmake","ncnnvulkan/arm64-v8a/lib/cmake/OSDependentTargets-release.cmake","ncnnvulkan/arm64-v8a/lib/cmake/OGLCompilerTargets.cmake","ncnnvulkan/arm64-v8a/lib/cmake/OGLCompilerTargets-release.cmake","ncnnvulkan/arm64-v8a/lib/cmake/glslangTargets.cmake","ncnnvulkan/arm64-v8a/lib/cmake/glslangTargets-release.cmake","ncnnvulkan/arm64-v8a/lib/cmake/SPIRVTargets.cmake","ncnnvulkan/arm64-v8a/lib/cmake/SPIRVTargets-release.cmake","ncnnvulkan/arm64-v8a/lib/cmake/ncnn/ncnn.cmake","ncnnvulkan/arm64-v8a/lib/cmake/ncnn/ncnn-release.cmake"]},{"isCMake":false,"isTemporary":true,"sources":["../../../.cxx/cmake/debug/arm64-v8a/CMakeFiles/3.10.2/CMakeSystem.cmake","../../../.cxx/cmake/debug/arm64-v8a/CMakeFiles/3.10.2/CMakeCCompiler.cmake","../../../.cxx/cmake/debug/arm64-v8a/CMakeFiles/3.10.2/CMakeCXXCompiler.cmake","../../../.cxx/cmake/debug/arm64-v8a/CMakeFiles/feature_tests.c","../../../.cxx/cmake/debug/arm64-v8a/CMakeFiles/feature_tests.c","../../../.cxx/cmake/debug/arm64-v8a/CMakeFiles/feature_tests.c","../../../.cxx/cmake/debug/arm64-v8a/CMakeFiles/3.10.2/CMakeCCompiler.cmake","../../../.cxx/cmake/debug/arm64-v8a/CMakeFiles/feature_tests.cxx","../../../.cxx/cmake/debug/arm64-v8a/CMakeFiles/feature_tests.cxx","../../../.cxx/cmake/debug/arm64-v8a/CMakeFiles/feature_tests.cxx","../../../.cxx/cmake/debug/arm64-v8a/CMakeFiles/feature_tests.cxx","../../../.cxx/cmake/debug/arm64-v8a/CMakeFiles/3.10.2/CMakeCXXCompiler.cmake","../../../.cxx/cmake/debug/arm64-v8a/CMakeFiles/FindOpenMP/OpenMPTryFlag.c","../../../.cxx/cmake/debug/arm64-v8a/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp","../../../.cxx/cmake/debug/arm64-v8a/CMakeFiles/FindOpenMP/OpenMPCheckVersion.c","../../../.cxx/cmake/debug/arm64-v8a/CMakeFiles/FindOpenMP/OpenMPCheckVersion.cpp"]}],"cmakeRootDirectory":"C:/Users/Tomas/AppData/Local/Android/sdk/cmake/3.10.2.4988404/share/cmake-3.10","cookie":"","inReplyTo":"cmakeInputs","sourceDirectory":"C:/Users/Tomas/Documents/Work/sportsvisio/ncnn/ncnn_android/android/src/main/cpp","type":"reply"}
 
 CMAKE SERVER: ]== "CMake Server" ==]
@@ -587,7 +483,7 @@ CMAKE SERVER:
 
 CMAKE SERVER: [== "CMake Server" ==[
 
-CMAKE SERVER: {"configurations":[{"name":"Debug","projects":[{"buildDirectory":"C:/Users/Tomas/Documents/Work/sportsvisio/ncnn/ncnn_android/android/.cxx/cmake/debug/arm64-v8a","name":"yolov5","sourceDirectory":"C:/Users/Tomas/Documents/Work/sportsvisio/ncnn/ncnn_android/android/src/main/cpp","targets":[{"artifacts":["C:/Users/Tomas/Documents/Work/sportsvisio/ncnn/ncnn_android/android/build/intermediates/cmake/debug/obj/arm64-v8a/libyolov5.so"],"buildDirectory":"C:/Users/Tomas/Documents/Work/sportsvisio/ncnn/ncnn_android/android/.cxx/cmake/debug/arm64-v8a","fileGroups":[{"compileFlags":"-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -fopenmp -O0 -fno-limit-debug-info  -fPIC   -frtti -fexceptions","defines":["yolov5_EXPORTS"],"includePath":[{"path":"C:/Users/Tomas/Documents/Work/sportsvisio/ncnn/ncnn_android/android/src/main/cpp/ocr"},{"path":"C:/Users/Tomas/Documents/Work/sportsvisio/ncnn/ncnn_android/android/src/main/cpp/ncnnvulkan/arm64-v8a/include"},{"path":"C:/Users/Tomas/Documents/Work/sportsvisio/ncnn/ncnn_android/android/src/main/cpp/opencv/include"},{"isSystem":true,"path":"C:/Users/Tomas/Documents/Work/sportsvisio/ncnn/ncnn_android/android/src/main/cpp/ncnnvulkan/arm64-v8a/include/ncnn"}],"isGenerated":false,"language":"CXX","sources":["DBFace.cpp","ENet.cpp","FaceLandmark.cpp","LightOpenPose.cpp","MbnFCN.cpp","MobileNetV3Seg.cpp","NanoDet.cpp","SimplePose.cpp","Yolact.cpp","YoloV4.cpp","YoloV5.cpp","YoloV5CustomLayer.cpp","jni_interface.cpp","ocr/NCNNDBNet.cpp","ocr/RRLib.cpp","ocr/ZUtil.cpp","ocr/clipper.cpp","ocr/ocr.cpp"]}],"fullName":"libyolov5.so","linkFlags":"-Wl,--exclude-libs,libgcc.a -Wl,--exclude-libs,libgcc_real.a -Wl,--exclude-libs,libatomic.a -Wl,--build-id -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments  -static-openmp","linkLibraries":"C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn_android\\android\\src\\main\\cpp\\opencv\\arm64-v8a\\libopencv_java4.so C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn_android\\android\\src\\main\\cpp\\ncnnvulkan\\arm64-v8a\\lib\\libncnn.a -fopenmp -static-openmp C:\\Users\\Tomas\\AppData\\Local\\Android\\sdk\\ndk\\21.1.6352462\\toolchains\\llvm\\prebuilt\\windows-x86_64\\sysroot\\usr\\lib\\aarch64-linux-android\\24\\libvulkan.so C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn_android\\android\\src\\main\\cpp\\ncnnvulkan\\arm64-v8a\\lib\\libglslang.a C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn_android\\android\\src\\main\\cpp\\ncnnvulkan\\arm64-v8a\\lib\\libSPIRV.a C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn_android\\android\\src\\main\\cpp\\ncnnvulkan\\arm64-v8a\\lib\\libMachineIndependent.a C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn_android\\android\\src\\main\\cpp\\ncnnvulkan\\arm64-v8a\\lib\\libOGLCompiler.a C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn_android\\android\\src\\main\\cpp\\ncnnvulkan\\arm64-v8a\\lib\\libOSDependent.a -pthread C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn_android\\android\\src\\main\\cpp\\ncnnvulkan\\arm64-v8a\\lib\\libGenericCodeGen.a -landroid -ljnigraphics -llog -latomic -lm","linkerLanguage":"CXX","name":"yolov5","sourceDirectory":"C:/Users/Tomas/Documents/Work/sportsvisio/ncnn/ncnn_android/android/src/main/cpp","sysroot":"C:/Users/Tomas/AppData/Local/Android/sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/windows-x86_64/sysroot","type":"SHARED_LIBRARY"}]}]}],"cookie":"","inReplyTo":"codemodel","type":"reply"}
+CMAKE SERVER: {"configurations":[{"name":"Debug","projects":[{"buildDirectory":"C:/Users/Tomas/Documents/Work/sportsvisio/ncnn/ncnn_android/android/.cxx/cmake/debug/arm64-v8a","name":"yolov5","sourceDirectory":"C:/Users/Tomas/Documents/Work/sportsvisio/ncnn/ncnn_android/android/src/main/cpp","targets":[{"artifacts":["C:/Users/Tomas/Documents/Work/sportsvisio/ncnn/ncnn/example/build/ncnn_android/intermediates/cmake/debug/obj/arm64-v8a/libyolov5.so"],"buildDirectory":"C:/Users/Tomas/Documents/Work/sportsvisio/ncnn/ncnn_android/android/.cxx/cmake/debug/arm64-v8a","fileGroups":[{"compileFlags":"-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -fopenmp -O0 -fno-limit-debug-info  -fPIC   -frtti -fexceptions","defines":["yolov5_EXPORTS"],"includePath":[{"path":"C:/Users/Tomas/Documents/Work/sportsvisio/ncnn/ncnn_android/android/src/main/cpp/ncnnvulkan/arm64-v8a/include"},{"path":"C:/Users/Tomas/Documents/Work/sportsvisio/ncnn/ncnn_android/android/src/main/cpp/opencv/include"},{"isSystem":true,"path":"C:/Users/Tomas/Documents/Work/sportsvisio/ncnn/ncnn_android/android/src/main/cpp/ncnnvulkan/arm64-v8a/include/ncnn"}],"isGenerated":false,"language":"CXX","sources":["DBFace.cpp","ENet.cpp","FaceLandmark.cpp","LightOpenPose.cpp","MbnFCN.cpp","MobileNetV3Seg.cpp","NanoDet.cpp","SimplePose.cpp","Yolact.cpp","YoloV4.cpp","YoloV5.cpp","YoloV5CustomLayer.cpp","YoloV7.cpp","jni_interface.cpp"]}],"fullName":"libyolov5.so","linkFlags":"-Wl,--exclude-libs,libgcc.a -Wl,--exclude-libs,libgcc_real.a -Wl,--exclude-libs,libatomic.a -Wl,--build-id -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments  -static-openmp","linkLibraries":"C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn_android\\android\\src\\main\\cpp\\opencv\\arm64-v8a\\libopencv_java4.so C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn_android\\android\\src\\main\\cpp\\ncnnvulkan\\arm64-v8a\\lib\\libncnn.a -fopenmp -static-openmp C:\\Users\\Tomas\\AppData\\Local\\Android\\sdk\\ndk\\21.1.6352462\\toolchains\\llvm\\prebuilt\\windows-x86_64\\sysroot\\usr\\lib\\aarch64-linux-android\\24\\libvulkan.so C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn_android\\android\\src\\main\\cpp\\ncnnvulkan\\arm64-v8a\\lib\\libglslang.a C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn_android\\android\\src\\main\\cpp\\ncnnvulkan\\arm64-v8a\\lib\\libSPIRV.a C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn_android\\android\\src\\main\\cpp\\ncnnvulkan\\arm64-v8a\\lib\\libMachineIndependent.a C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn_android\\android\\src\\main\\cpp\\ncnnvulkan\\arm64-v8a\\lib\\libOGLCompiler.a C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn_android\\android\\src\\main\\cpp\\ncnnvulkan\\arm64-v8a\\lib\\libOSDependent.a -pthread C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn_android\\android\\src\\main\\cpp\\ncnnvulkan\\arm64-v8a\\lib\\libGenericCodeGen.a -landroid -ljnigraphics -llog -latomic -lm","linkerLanguage":"CXX","name":"yolov5","sourceDirectory":"C:/Users/Tomas/Documents/Work/sportsvisio/ncnn/ncnn_android/android/src/main/cpp","sysroot":"C:/Users/Tomas/AppData/Local/Android/sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/windows-x86_64/sysroot","type":"SHARED_LIBRARY"}]}]}],"cookie":"","inReplyTo":"codemodel","type":"reply"}
 
 CMAKE SERVER: ]== "CMake Server" ==]
 

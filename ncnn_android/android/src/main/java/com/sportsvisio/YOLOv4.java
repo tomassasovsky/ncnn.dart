@@ -8,6 +8,7 @@ public class YOLOv4 {
         System.loadLibrary("yolov5");  // 存放在yolov5.so中
     }
 
-    public static native void init(AssetManager manager, int yoloType, boolean useGPU);
+    public static native void init(AssetManager assetManager, String paramFilePath, String binFilePath, boolean useGPU);
+
     public static native Box[] detect(Bitmap bitmap, double threshold, double nms_threshold);
 }

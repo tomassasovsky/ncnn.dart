@@ -11,7 +11,8 @@ bool ENet::hasGPU = true;
 bool ENet::toUseGPU = true;
 ENet *ENet::detector = nullptr;
 
-ENet::ENet(AAssetManager *mgr, bool useGPU) {
+ENet::ENet(AAssetManager *assetManager, const char *paramFilePath, const char *binFilePath,
+           bool useGPU) {
     hasGPU = ncnn::get_gpu_count() > 0;
     toUseGPU = hasGPU && useGPU;
 
@@ -19,8 +20,8 @@ ENet::ENet(AAssetManager *mgr, bool useGPU) {
     // opt 需要在加载前设置
     ENetsim->opt.use_vulkan_compute = toUseGPU;  // gpu
     ENetsim->opt.use_fp16_arithmetic = true;  // fp16运算加速
-    ENetsim->load_param(mgr, "ENet_sim-opt.param");
-    ENetsim->load_model(mgr, "ENet_sim-opt.bin");
+    ENetsim->load_param(paramFilePath);
+    ENetsim->load_model(binFilePath);
 //    LOGD("enet_detector");
 
 }

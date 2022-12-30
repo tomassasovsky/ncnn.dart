@@ -17,7 +17,7 @@ void main() {
 
   group('E2E', () {
     testWidgets('getPlatformName', (tester) async {
-      app.main();
+      await app.main();
       await tester.pumpAndSettle();
       await tester.tap(find.text('Get Platform Name'));
       await tester.pumpAndSettle();

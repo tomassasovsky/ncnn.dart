@@ -8,7 +8,8 @@ bool YoloV5::hasGPU = true;
 bool YoloV5::toUseGPU = true;
 YoloV5 *YoloV5::detector = nullptr;
 
-YoloV5::YoloV5(AAssetManager *mgr, const char *param, const char *bin, bool useGPU) {
+YoloV5::YoloV5(AAssetManager *assetManager, const char *paramFilePath, const char *binFilePath,
+           bool useGPU) {
     hasGPU = ncnn::get_gpu_count() > 0;
     toUseGPU = hasGPU && useGPU;
 
@@ -16,8 +17,8 @@ YoloV5::YoloV5(AAssetManager *mgr, const char *param, const char *bin, bool useG
     // opt 需要在加载前设置
     Net->opt.use_vulkan_compute = toUseGPU;  // gpu
     Net->opt.use_fp16_arithmetic = true;  // fp16运算加速
-    Net->load_param(mgr, param);
-    Net->load_model(mgr, bin);
+    Net->load_param(paramFilePath); // .param
+    Net->load_model(binFilePath); // .bin
 }
 
 YoloV5::~YoloV5() {

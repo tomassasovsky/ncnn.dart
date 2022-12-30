@@ -11,7 +11,8 @@ bool MBNV3Seg::hasGPU = true;
 bool MBNV3Seg::toUseGPU = true;
 MBNV3Seg *MBNV3Seg::detector = nullptr;
 
-MBNV3Seg::MBNV3Seg(AAssetManager *mgr, bool useGPU) {
+MBNV3Seg::MBNV3Seg(AAssetManager *assetManager, const char *paramFilePath, const char *binFilePath,
+           bool useGPU) {
     hasGPU = ncnn::get_gpu_count() > 0;
     toUseGPU = hasGPU && useGPU;
 
@@ -19,8 +20,8 @@ MBNV3Seg::MBNV3Seg(AAssetManager *mgr, bool useGPU) {
     // opt 需要在加载前设置
     MBNSegsim->opt.use_vulkan_compute = toUseGPU;  // gpu
     MBNSegsim->opt.use_fp16_arithmetic = true;  // fp16运算加速
-    MBNSegsim->load_param(mgr, "mbnv3_small.param");
-    MBNSegsim->load_model(mgr, "mbnv3_small.bin");
+    MBNSegsim->load_param(paramFilePath);
+    MBNSegsim->load_model(binFilePath);
 //    LOGD("mbnv3seg_detector");
 
 }

@@ -5,7 +5,10 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
+import 'dart:typed_data';
+
 import 'package:flutter_test/flutter_test.dart';
+import 'package:image/image.dart' as img_lib;
 import 'package:ncnn_platform_interface/ncnn_platform_interface.dart';
 
 class NcnnMock extends NcnnPlatform {
@@ -13,6 +16,24 @@ class NcnnMock extends NcnnPlatform {
 
   @override
   Future<String?> getPlatformName() async => mockPlatformName;
+
+  @override
+  Future<void> initialize({
+    required String binFile,
+    required String paramFile,
+    ModelType modelType = ModelType.YOLOv4,
+    bool useGPU = false,
+  }) async {}
+
+  @override
+  Future<List<Box>?> detect({
+    required Uint8List imageData,
+    img_lib.Format format = img_lib.Format.bgr,
+    required ModelType modelType,
+    double threshold = 0.4,
+    double nmsThreshold = 0.6,
+  }) async =>
+      null;
 }
 
 void main() {

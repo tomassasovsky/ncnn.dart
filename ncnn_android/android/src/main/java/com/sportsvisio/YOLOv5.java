@@ -8,9 +8,11 @@ public class YOLOv5 {
         System.loadLibrary("yolov5");
     }
 
-    public static native void init(AssetManager manager, boolean useGPU);
+    public static native void init(AssetManager assetManager, String paramFilePath, String binFilePath, boolean useGPU);
+
     public static native Box[] detect(Bitmap bitmap, double threshold, double nms_threshold);
 
-    public static native void initCustomLayer(AssetManager manager, boolean useGPU);
+    public static native void initCustomLayer(AssetManager assetManager, String paramFilePath, String binFilePath, boolean useGPU);
+
     public static native Box[] detectCustomLayer(Bitmap bitmap, double threshold, double nms_threshold);
 }

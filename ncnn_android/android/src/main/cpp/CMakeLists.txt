@@ -23,16 +23,13 @@ set_target_properties(
 
 # 搜索当前目录下的所有.cpp文件
 aux_source_directory(. SRC_LIST)
-aux_source_directory(./ocr OCR_SRC_LIST)
 add_library(
         yolov5
         SHARED
         ${SRC_LIST}
-        ${OCR_SRC_LIST}
 )
 
 include_directories(
-        ocr
         # ./ncnnvulkan  # 使用这种写法需要把代码引入头文件全部改为 "net.h" 而不是 "ncnn/net.h" 形式
         ${CMAKE_SOURCE_DIR}/ncnnvulkan/${ANDROID_ABI}/include/  # 懒的改代码了需要用这种方式引入 "ncnn/net.h"
         ${CMAKE_SOURCE_DIR}/opencv/include/

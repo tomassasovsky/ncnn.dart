@@ -31,23 +31,17 @@ typedef struct BoxInfo {
 
 class YoloV5 {
 public:
-    YoloV5(AAssetManager *mgr, const char *param, const char *bin, bool useGPU);
+    YoloV5(AAssetManager *assetManager, const char *paramFilePath, const char *binFilePath,
+           bool useGPU);
 
     ~YoloV5();
 
     std::vector<BoxInfo> detect(JNIEnv *env, jobject image, float threshold, float nms_threshold);
-    std::vector<std::string> labels{"person", "bicycle", "car", "motorcycle", "airplane", "bus", "train", "truck", "boat", "traffic light",
-                                    "fire hydrant", "stop sign", "parking meter", "bench", "bird", "cat", "dog", "horse", "sheep", "cow",
-                                    "elephant", "bear", "zebra", "giraffe", "backpack", "umbrella", "handbag", "tie", "suitcase", "frisbee",
-                                    "skis", "snowboard", "sports ball", "kite", "baseball bat", "baseball glove", "skateboard", "surfboard",
-                                    "tennis racket", "bottle", "wine glass", "cup", "fork", "knife", "spoon", "bowl", "banana", "apple",
-                                    "sandwich", "orange", "broccoli", "carrot", "hot dog", "pizza", "donut", "cake", "chair", "couch",
-                                    "potted plant", "bed", "dining table", "toilet", "tv", "laptop", "mouse", "remote", "keyboard", "cell phone",
-                                    "microwave", "oven", "toaster", "sink", "refrigerator", "book", "clock", "vase", "scissors", "teddy bear",
-                                    "hair drier", "toothbrush"};
+
 private:
     static std::vector<BoxInfo>
-    decode_infer(ncnn::Mat &data, int stride, const yolocv::YoloSize &frame_size, int net_size, int num_classes,
+    decode_infer(ncnn::Mat &data, int stride, const yolocv::YoloSize &frame_size, int net_size,
+                 int num_classes,
                  const std::vector<yolocv::YoloSize> &anchors, float threshold);
 
     static void nms(std::vector<BoxInfo> &result, float nms_threshold);

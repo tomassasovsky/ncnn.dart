@@ -8,6 +8,6 @@ class FaceLandmark {
         System.loadLibrary("yolov5");
     }
 
-    public static native void init(AssetManager manager, boolean useGPU);
+    public static native void init(AssetManager assetManager, String paramFilePath, String binFilePath, boolean useGPU);
     public static native FaceKeyPoint[] detect(Bitmap bitmap);
 }

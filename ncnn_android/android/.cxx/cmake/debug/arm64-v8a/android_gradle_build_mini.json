@@ -24,7 +24,7 @@
       "artifactName": "yolov5",
       "buildCommand": "C:\\Users\\Tomas\\AppData\\Local\\Android\\sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn_android\\android\\.cxx\\cmake\\debug\\arm64-v8a\" yolov5",
       "abi": "arm64-v8a",
-      "output": "C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn_android\\android\\build\\intermediates\\cmake\\debug\\obj\\arm64-v8a\\libyolov5.so",
+      "output": "C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn\\example\\build\\ncnn_android\\intermediates\\cmake\\debug\\obj\\arm64-v8a\\libyolov5.so",
       "runtimeFiles": [
         "C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn_android\\android\\src\\main\\cpp\\opencv\\arm64-v8a\\libopencv_java4.so"
       ]

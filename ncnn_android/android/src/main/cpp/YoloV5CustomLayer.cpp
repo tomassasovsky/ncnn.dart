@@ -262,7 +262,8 @@ bool YoloV5CustomLayer::hasGPU = true;
 bool YoloV5CustomLayer::toUseGPU = true;
 YoloV5CustomLayer *YoloV5CustomLayer::detector = nullptr;
 
-YoloV5CustomLayer::YoloV5CustomLayer(AAssetManager *mgr, const char *param, const char *bin, bool useGPU) {
+YoloV5CustomLayer::YoloV5CustomLayer(AAssetManager *assetManager, const char *paramFilePath, const char *binFilePath,
+           bool useGPU) {
     hasGPU = ncnn::get_gpu_count() > 0;
     toUseGPU = hasGPU && useGPU;
 
@@ -274,8 +275,8 @@ YoloV5CustomLayer::YoloV5CustomLayer(AAssetManager *mgr, const char *param, cons
     // 注册自定义层
     Net->register_custom_layer("YoloV5Focus", YoloV5Focus_layer_creator);
 #endif
-    Net->load_param(mgr, param);
-    Net->load_model(mgr, bin);
+    Net->load_param(paramFilePath); // .param
+    Net->load_model(binFilePath); // .bin
 }
 
 YoloV5CustomLayer::~YoloV5CustomLayer() {

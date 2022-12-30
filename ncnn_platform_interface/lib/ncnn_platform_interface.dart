@@ -5,8 +5,16 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
+import 'package:flutter/foundation.dart';
+import 'package:image/image.dart' as img_lib;
+import 'package:ncnn_platform_interface/src/box.dart';
 import 'package:ncnn_platform_interface/src/method_channel_ncnn.dart';
+import 'package:ncnn_platform_interface/src/model_types.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+
+export 'package:image/image.dart' show Format, Image;
+export 'src/box.dart';
+export 'src/model_types.dart';
 
 /// The interface that implementations of ncnn must implement.
 ///
@@ -37,4 +45,21 @@ abstract class NcnnPlatform extends PlatformInterface {
 
   /// Return the current platform name.
   Future<String?> getPlatformName();
+
+  /// Initializes a model.
+  Future<void> initialize({
+    required String binFile,
+    required String paramFile,
+    ModelType modelType,
+    bool useGPU,
+  });
+
+  /// Detects an image using an initialized model.
+  Future<List<Box>?> detect({
+    required Uint8List imageData,
+    img_lib.Format format,
+    required ModelType modelType,
+    double threshold,
+    double nmsThreshold,
+  });
 }

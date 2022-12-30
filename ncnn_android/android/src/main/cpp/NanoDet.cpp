@@ -34,7 +34,8 @@ int activation_function_softmax(const _Tp *src, _Tp *dst, int length) {
     return 0;
 }
 
-NanoDet::NanoDet(AAssetManager *mgr, const char *param, const char *bin, bool useGPU) {
+NanoDet::NanoDet(AAssetManager *assetManager, const char *paramFilePath, const char *binFilePath,
+           bool useGPU) {
     hasGPU = ncnn::get_gpu_count() > 0;
     toUseGPU = hasGPU && useGPU;
 
@@ -44,8 +45,8 @@ NanoDet::NanoDet(AAssetManager *mgr, const char *param, const char *bin, bool us
     Net->opt.use_fp16_arithmetic = true;  // fp16运算加速
     Net->opt.use_fp16_packed = true;
     Net->opt.use_fp16_storage = true;
-    Net->load_param(mgr, param);
-    Net->load_model(mgr, bin);
+    Net->load_param(paramFilePath); // .param
+    Net->load_model(binFilePath); // .bin
 }
 
 NanoDet::~NanoDet() {

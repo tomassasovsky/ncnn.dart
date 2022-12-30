@@ -8,7 +8,8 @@ bool DBFace::hasGPU = true;
 bool DBFace::toUseGPU = true;
 DBFace *DBFace::detector = nullptr;
 
-DBFace::DBFace(AAssetManager *mgr, bool useGPU) {
+DBFace::DBFace(AAssetManager *assetManager, const char *paramFilePath, const char *binFilePath,
+           bool useGPU) {
     hasGPU = ncnn::get_gpu_count() > 0;
     toUseGPU = hasGPU && useGPU;
 
@@ -16,8 +17,8 @@ DBFace::DBFace(AAssetManager *mgr, bool useGPU) {
     // opt 需要在加载前设置
     DBFaceNet->opt.use_vulkan_compute = toUseGPU;  // gpu
     DBFaceNet->opt.use_fp16_arithmetic = true;  // fp16运算加速
-    DBFaceNet->load_param(mgr, "dbface.param");
-    DBFaceNet->load_model(mgr, "dbface.bin");
+    DBFaceNet->load_param(paramFilePath);
+    DBFaceNet->load_model(binFilePath);
 //    LOGD("dbface_detector");
 }
 

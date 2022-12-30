@@ -8,7 +8,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:ncnn/ncnn.dart';
-import 'package:ncnn_platform_interface/ncnn_platform_interface.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 class MockNcnnPlatform extends Mock
@@ -34,7 +33,7 @@ void main() {
           () => ncnnPlatform.getPlatformName(),
         ).thenAnswer((_) async => platformName);
 
-        final actualPlatformName = await getPlatformName();
+        final actualPlatformName = await ncnnPlatform.getPlatformName();
         expect(actualPlatformName, equals(platformName));
       });
 
@@ -44,7 +43,7 @@ void main() {
           () => ncnnPlatform.getPlatformName(),
         ).thenAnswer((_) async => null);
 
-        expect(getPlatformName, throwsException);
+        expect(ncnnPlatform.getPlatformName, throwsException);
       });
     });
   });

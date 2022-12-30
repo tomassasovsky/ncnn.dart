@@ -53,7 +53,7 @@
         },
         {
           "name": "CMAKE_LIBRARY_OUTPUT_DIRECTORY",
-          "value": "C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn_android\\android\\build\\intermediates\\cmake\\debug\\obj\\arm64-v8a"
+          "value": "C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn\\example\\build\\ncnn_android\\intermediates\\cmake\\debug\\obj\\arm64-v8a"
         },
         {
           "name": "CMAKE_MAKE_PROGRAM",
@@ -109,8 +109,8 @@
       },
       "cmakeToolchainFile": "C:\\Users\\Tomas\\AppData\\Local\\Android\\sdk\\ndk\\21.1.6352462\\build\\cmake\\android.toolchain.cmake",
       "cxxFolder": "C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn_android\\android\\.cxx",
-      "gradleModulePathName": ":",
-      "intermediatesFolder": "C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn_android\\android\\build\\intermediates",
+      "gradleModulePathName": ":ncnn_android",
+      "intermediatesFolder": "C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn\\example\\build\\ncnn_android\\intermediates",
       "makeFile": "C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn_android\\android\\src\\main\\cpp\\CMakeLists.txt",
       "moduleBuildFile": "C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn_android\\android\\build.gradle",
       "moduleRootFolder": "C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn_android\\android",
@@ -177,12 +177,12 @@
       "ndkDefaultStl": "LIBCXX_STATIC",
       "ndkVersion": "21.1.6352462",
       "project": {
-        "compilerSettingsCacheFolder": "C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn_android\\android\\.cxx",
-        "cxxFolder": "C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn_android\\android\\.cxx",
+        "compilerSettingsCacheFolder": "C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn\\example\\android\\.cxx",
+        "cxxFolder": "C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn\\example\\android\\.cxx",
         "isBuildOnlyTargetAbiEnabled": true,
         "isCmakeBuildCohabitationEnabled": false,
         "isNativeCompilerSettingsCacheEnabled": false,
-        "rootBuildGradleFolder": "C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn_android\\android",
+        "rootBuildGradleFolder": "C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn\\example\\android",
         "sdkFolder": "C:\\Users\\Tomas\\AppData\\Local\\Android\\sdk",
         "isPrefabEnabled": false
       },
@@ -199,7 +199,7 @@
         "SYSTEM": {}
       }
     },
-    "objFolder": "C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn_android\\android\\build\\intermediates\\cmake\\debug\\obj",
+    "objFolder": "C:\\Users\\Tomas\\Documents\\Work\\sportsvisio\\ncnn\\ncnn\\example\\build\\ncnn_android\\intermediates\\cmake\\debug\\obj",
     "variantName": "debug",
     "validAbiList": [
       "ARMEABI_V7A",

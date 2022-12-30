@@ -42,7 +42,8 @@ struct PoseResult {
 
 class SimplePose {
 public:
-    SimplePose(AAssetManager *mgr, bool useGPU);
+    SimplePose(AAssetManager *assetManager, const char *paramFilePath, const char *binFilePath,
+           bool useGPU);
 
     ~SimplePose();
 

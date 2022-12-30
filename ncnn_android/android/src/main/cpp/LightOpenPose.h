@@ -83,7 +83,8 @@ namespace human_pose_estimation {
 
 class LightOpenPose {
 public:
-    LightOpenPose(AAssetManager *mgr, bool useGPU);
+    LightOpenPose(AAssetManager *assetManager, const char *paramFilePath, const char *binFilePath,
+           bool useGPU);
 
     ~LightOpenPose();
 

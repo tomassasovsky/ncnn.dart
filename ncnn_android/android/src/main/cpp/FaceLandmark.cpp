@@ -9,7 +9,8 @@ bool FaceLandmark::hasGPU = true;
 bool FaceLandmark::toUseGPU = true;
 FaceLandmark *FaceLandmark::detector = nullptr;
 
-FaceLandmark::FaceLandmark(AAssetManager *mgr, bool useGPU) {
+FaceLandmark::FaceLandmark(AAssetManager *assetManager, const char *paramFilePath, const char *binFilePath,
+           bool useGPU) {
     hasGPU = ncnn::get_gpu_count() > 0;
     toUseGPU = hasGPU && useGPU;
 
@@ -17,17 +18,16 @@ FaceLandmark::FaceLandmark(AAssetManager *mgr, bool useGPU) {
     // opt 需要在加载前设置
     FaceNet->opt.use_vulkan_compute = toUseGPU;  // gpu
     FaceNet->opt.use_fp16_arithmetic = true;  // fp16运算加速
-    FaceNet->load_param(mgr, "yoloface-500k.param");
-    FaceNet->load_model(mgr, "yoloface-500k.bin");
+    FaceNet->load_param(paramFilePath);
+    FaceNet->load_model(binFilePath);
 //    LOGD("face_detector");
 
     LandmarkNet = new ncnn::Net();
     LandmarkNet->opt.use_vulkan_compute = toUseGPU;  // gpu
     LandmarkNet->opt.use_fp16_arithmetic = true;  // fp16运算加速
-    LandmarkNet->load_param(mgr, "landmark106.param");
-    LandmarkNet->load_model(mgr, "landmark106.bin");
+    LandmarkNet->load_param(paramFilePath);
+    LandmarkNet->load_model(binFilePath);
 //    LOGD("landmark106");
-
 }
 
 FaceLandmark::~FaceLandmark() {

@@ -4,7 +4,8 @@ bool YoloV4::hasGPU = true;
 bool YoloV4::toUseGPU = true;
 YoloV4 *YoloV4::detector = nullptr;
 
-YoloV4::YoloV4(AAssetManager *mgr, const char *param, const char *bin, bool useGPU) {
+YoloV4::YoloV4(AAssetManager *assetManager, const char *paramFilePath, const char *binFilePath,
+               bool useGPU) {
     hasGPU = ncnn::get_gpu_count() > 0;
     toUseGPU = hasGPU && useGPU;
 
@@ -12,8 +13,8 @@ YoloV4::YoloV4(AAssetManager *mgr, const char *param, const char *bin, bool useG
     // opt 需要在加载前设置
     Net->opt.use_vulkan_compute = toUseGPU;  // gpu
     Net->opt.use_fp16_arithmetic = true;  // fp16运算加速
-    Net->load_param(mgr, param);
-    Net->load_model(mgr, bin);
+    Net->load_param(assetManager, paramFilePath); // .param
+    Net->load_model(assetManager, binFilePath); // .bin
 }
 
 YoloV4::~YoloV4() {
@@ -21,10 +22,12 @@ YoloV4::~YoloV4() {
     delete Net;
 }
 
-std::vector<BoxInfo> YoloV4::detect(JNIEnv *env, jobject image, float threshold, float nms_threshold) {
+std::vector<BoxInfo>
+YoloV4::detect(JNIEnv *env, jobject image, jdouble threshold, jdouble nms_threshold) {
     AndroidBitmapInfo img_size;
     AndroidBitmap_getInfo(env, image, &img_size);
-    ncnn::Mat in_net = ncnn::Mat::from_android_bitmap_resize(env, image, ncnn::Mat::PIXEL_RGBA2RGB, input_size,
+    ncnn::Mat in_net = ncnn::Mat::from_android_bitmap_resize(env, image, ncnn::Mat::PIXEL_RGBA2RGB,
+                                                             input_size,
                                                              input_size);
     float norm[3] = {1 / 255.f, 1 / 255.f, 1 / 255.f};
     float mean[3] = {0, 0, 0};
@@ -39,7 +42,8 @@ std::vector<BoxInfo> YoloV4::detect(JNIEnv *env, jobject image, float threshold,
     std::vector<BoxInfo> result;
     ncnn::Mat blob;
     ex.extract("output", blob);
-    auto boxes = decode_infer(blob, {(int) img_size.width, (int) img_size.height}, input_size, num_class, threshold);
+    auto boxes = decode_infer(blob, {(int) img_size.width, (int) img_size.height}, input_size,
+                              num_class, threshold);
     result.insert(result.begin(), boxes.begin(), boxes.end());
 //    nms(result,nms_threshold);
     return result;
@@ -59,7 +63,8 @@ inline float sigmoid(float x) {
 }
 
 std::vector<BoxInfo>
-YoloV4::decode_infer(ncnn::Mat &data, const yolocv::YoloSize &frame_size, int net_size, int num_classes, float threshold) {
+YoloV4::decode_infer(ncnn::Mat &data, const yolocv::YoloSize &frame_size, int net_size,
+                     int num_classes, float threshold) {
     std::vector<BoxInfo> result;
     for (int i = 0; i < data.h; i++) {
         BoxInfo box;

@@ -434,7 +434,8 @@ bool LightOpenPose::hasGPU = true;
 bool LightOpenPose::toUseGPU = true;
 LightOpenPose *LightOpenPose::detector = nullptr;
 
-LightOpenPose::LightOpenPose(AAssetManager *mgr, bool useGPU) {
+LightOpenPose::LightOpenPose(AAssetManager *assetManager, const char *paramFilePath, const char *binFilePath,
+           bool useGPU) {
     hasGPU = ncnn::get_gpu_count() > 0;
     toUseGPU = hasGPU && useGPU;
 
@@ -444,8 +445,8 @@ LightOpenPose::LightOpenPose(AAssetManager *mgr, bool useGPU) {
     humanPoseNet->opt.use_fp16_arithmetic = true;  // fp16运算加速
     humanPoseNet->opt.use_fp16_packed = true;
     humanPoseNet->opt.use_fp16_storage = true;
-    humanPoseNet->load_param(mgr, "human_pose_sim_opt.param");
-    humanPoseNet->load_model(mgr, "human_pose_sim_opt.bin");
+    humanPoseNet->load_param(paramFilePath);
+    humanPoseNet->load_model(binFilePath);
 }
 
 LightOpenPose::~LightOpenPose() {

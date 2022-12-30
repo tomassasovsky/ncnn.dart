@@ -18,7 +18,8 @@ bool Yolact::hasGPU = true;
 bool Yolact::toUseGPU = true;
 Yolact *Yolact::detector = nullptr;
 
-Yolact::Yolact(AAssetManager *mgr, bool useGPU) {
+Yolact::Yolact(AAssetManager *assetManager, const char *paramFilePath, const char *binFilePath,
+           bool useGPU) {
     hasGPU = ncnn::get_gpu_count() > 0;
     toUseGPU = hasGPU && useGPU;
 
@@ -26,8 +27,8 @@ Yolact::Yolact(AAssetManager *mgr, bool useGPU) {
     // opt 需要在加载前设置
     YolactNet->opt.use_vulkan_compute = toUseGPU;  // gpu
     YolactNet->opt.use_fp16_arithmetic = true;  // fp16运算加速
-    YolactNet->load_param(mgr, "yolact.param");
-    YolactNet->load_model(mgr, "yolact.bin");
+    YolactNet->load_param(paramFilePath); // .param
+    YolactNet->load_model(binFilePath); // .bin
 //    LOGD("yolact_detector");
 
 }

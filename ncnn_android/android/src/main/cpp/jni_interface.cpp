@@ -7,7 +7,6 @@
 #include "YoloV4.h"
 #include "SimplePose.h"
 #include "Yolact.h"
-#include "ocr.h"
 #include "ENet.h"
 #include "FaceLandmark.h"
 #include "DBFace.h"
@@ -25,7 +24,6 @@ JNIEXPORT jint JNI_OnLoad(JavaVM *vm, void *reserved) {
         YoloV4::hasGPU = true;
         SimplePose::hasGPU = true;
         Yolact::hasGPU = true;
-        OCR::hasGPU = true;
         ENet::hasGPU = true;
         FaceLandmark::hasGPU = true;
         DBFace::hasGPU = true;
@@ -42,7 +40,6 @@ JNIEXPORT void JNI_OnUnload(JavaVM *vm, void *reserved) {
     delete YoloV4::detector;
     delete SimplePose::detector;
     delete Yolact::detector;
-    delete OCR::detector;
     delete ENet::detector;
     delete FaceLandmark::detector;
     delete DBFace::detector;
@@ -56,28 +53,34 @@ JNIEXPORT void JNI_OnUnload(JavaVM *vm, void *reserved) {
                                          Yolov5
  ********************************************************************************************/
 extern "C" JNIEXPORT void JNICALL
-Java_com_sportsvisio_YOLOv5_init(JNIEnv *env, jclass, jobject assetManager, jboolean useGPU) {
+Java_com_sportsvisio_YOLOv5_init(JNIEnv *env, jclass, jobject assetManager, jstring paramFilePath,
+                                 jstring binFilePath,
+                                 jboolean useGPU) {
     if (YoloV5::detector != nullptr) {
         delete YoloV5::detector;
         YoloV5::detector = nullptr;
     }
     if (YoloV5::detector == nullptr) {
+        const char *paramPath = env->GetStringUTFChars(paramFilePath, nullptr);
+        const char *binPath = env->GetStringUTFChars(binFilePath, nullptr);
         AAssetManager *mgr = AAssetManager_fromJava(env, assetManager);
-        YoloV5::detector = new YoloV5(mgr, "yolov5.param", "yolov5.bin", useGPU);
+        YoloV5::detector = new YoloV5(mgr, paramPath, binPath, useGPU);
     }
 }
 
 extern "C" JNIEXPORT jobjectArray JNICALL
-Java_com_sportsvisio_YOLOv5_detect(JNIEnv *env, jclass, jobject image, jdouble threshold, jdouble nms_threshold) {
+Java_com_sportsvisio_YOLOv5_detect(JNIEnv *env, jclass, jobject image, jdouble threshold,
+                                   jdouble nms_threshold) {
     auto result = YoloV5::detector->detect(env, image, threshold, nms_threshold);
 
     auto box_cls = env->FindClass("com/sportsvisio/Box");
     auto cid = env->GetMethodID(box_cls, "<init>", "(FFFFIF)V");
     jobjectArray ret = env->NewObjectArray(result.size(), box_cls, nullptr);
     int i = 0;
-    for (auto &box:result) {
+    for (auto &box: result) {
         env->PushLocalFrame(1);
-        jobject obj = env->NewObject(box_cls, cid, box.x1, box.y1, box.x2, box.y2, box.label, box.score);
+        jobject obj = env->NewObject(box_cls, cid, box.x1, box.y1, box.x2, box.y2, box.label,
+                                     box.score);
         obj = env->PopLocalFrame(obj);
         env->SetObjectArrayElement(ret, i++, obj);
     }
@@ -86,28 +89,34 @@ Java_com_sportsvisio_YOLOv5_detect(JNIEnv *env, jclass, jobject image, jdouble t
 
 // ***************************************[ Yolov5 Custom Layer ]****************************************
 extern "C" JNIEXPORT void JNICALL
-Java_com_sportsvisio_YOLOv5_initCustomLayer(JNIEnv *env, jclass, jobject assetManager, jboolean useGPU) {
+Java_com_sportsvisio_YOLOv5_initCustomLayer(JNIEnv *env, jclass, jobject assetManager,
+                                            jstring paramFilePath,
+                                            jstring binFilePath, jboolean useGPU) {
     if (YoloV5CustomLayer::detector != nullptr) {
         delete YoloV5CustomLayer::detector;
         YoloV5CustomLayer::detector = nullptr;
     }
     if (YoloV5CustomLayer::detector == nullptr) {
+        const char *paramPath = env->GetStringUTFChars(paramFilePath, nullptr);
+        const char *binPath = env->GetStringUTFChars(binFilePath, nullptr);
         AAssetManager *mgr = AAssetManager_fromJava(env, assetManager);
-        YoloV5CustomLayer::detector = new YoloV5CustomLayer(mgr, "yolov5s_customlayer.param", "yolov5s_customlayer.bin", useGPU);
+        YoloV5CustomLayer::detector = new YoloV5CustomLayer(mgr, paramPath, binPath, useGPU);
     }
 }
 
 extern "C" JNIEXPORT jobjectArray JNICALL
-Java_com_sportsvisio_YOLOv5_detectCustomLayer(JNIEnv *env, jclass, jobject image, jdouble threshold, jdouble nms_threshold) {
+Java_com_sportsvisio_YOLOv5_detectCustomLayer(JNIEnv *env, jclass, jobject image, jdouble threshold,
+                                              jdouble nms_threshold) {
     auto result = YoloV5CustomLayer::detector->detect(env, image, threshold, nms_threshold);
 
     auto box_cls = env->FindClass("com/sportsvisio/Box");
     auto cid = env->GetMethodID(box_cls, "<init>", "(FFFFIF)V");
     jobjectArray ret = env->NewObjectArray(result.size(), box_cls, nullptr);
     int i = 0;
-    for (auto &box:result) {
+    for (auto &box: result) {
         env->PushLocalFrame(1);
-        jobject obj = env->NewObject(box_cls, cid, box.x1, box.y1, box.x2, box.y2, box.label, box.score);
+        jobject obj = env->NewObject(box_cls, cid, box.x1, box.y1, box.x2, box.y2, box.label,
+                                     box.score);
         obj = env->PopLocalFrame(obj);
         env->SetObjectArrayElement(ret, i++, obj);
     }
@@ -124,35 +133,35 @@ Java_com_sportsvisio_YOLOv5_detectCustomLayer(JNIEnv *env, jclass, jobject image
 // 20201124 增加 yolo-fastest-xl
 
 extern "C" JNIEXPORT void JNICALL
-Java_com_sportsvisio_YOLOv4_init(JNIEnv *env, jclass, jobject assetManager, jint yoloType, jboolean useGPU) {
+Java_com_sportsvisio_YOLOv4_init(JNIEnv *env, jclass, jobject assetManager, jstring paramFilePath,
+                                 jstring binFilePath,
+                                 jboolean useGPU) {
     if (YoloV4::detector != nullptr) {
         delete YoloV4::detector;
         YoloV4::detector = nullptr;
     }
     if (YoloV4::detector == nullptr) {
+        const char *paramPath = env->GetStringUTFChars(paramFilePath, nullptr);
+        const char *binPath = env->GetStringUTFChars(binFilePath, nullptr);
         AAssetManager *mgr = AAssetManager_fromJava(env, assetManager);
-        if (yoloType == 0) {
-            YoloV4::detector = new YoloV4(mgr, "yolov4-tiny-opt.param", "yolov4-tiny-opt.bin", useGPU);
-        } else if (yoloType == 1) {
-            YoloV4::detector = new YoloV4(mgr, "MobileNetV2-YOLOv3-Nano-coco.param",
-                                          "MobileNetV2-YOLOv3-Nano-coco.bin", useGPU);
-        } else if (yoloType == 2) {
-            YoloV4::detector = new YoloV4(mgr, "yolo-fastest-opt.param", "yolo-fastest-opt.bin", useGPU);
-        }
+        YoloV4::detector = new YoloV4(mgr, paramPath, binPath, useGPU);
     }
 }
 
 extern "C" JNIEXPORT jobjectArray JNICALL
-Java_com_sportsvisio_YOLOv4_detect(JNIEnv *env, jclass, jobject image, jdouble threshold, jdouble nms_threshold) {
+Java_com_sportsvisio_YOLOv4_detect(JNIEnv *env, jclass, jobject image, jdouble threshold,
+                                   jdouble nms_threshold) {
     auto result = YoloV4::detector->detect(env, image, threshold, nms_threshold);
 
     auto box_cls = env->FindClass("com/sportsvisio/Box");
+    std::cout << "box_cls: " << box_cls << std::endl;
     auto cid = env->GetMethodID(box_cls, "<init>", "(FFFFIF)V");
     jobjectArray ret = env->NewObjectArray(result.size(), box_cls, nullptr);
     int i = 0;
-    for (auto &box:result) {
+    for (auto &box: result) {
         env->PushLocalFrame(1);
-        jobject obj = env->NewObject(box_cls, cid, box.x1, box.y1, box.x2, box.y2, box.label, box.score);
+        jobject obj = env->NewObject(box_cls, cid, box.x1, box.y1, box.x2, box.y2, box.label,
+                                     box.score);
         obj = env->PopLocalFrame(obj);
         env->SetObjectArrayElement(ret, i++, obj);
     }
@@ -163,28 +172,34 @@ Java_com_sportsvisio_YOLOv4_detect(JNIEnv *env, jclass, jobject image, jdouble t
                                          NanoDet
  ********************************************************************************************/
 extern "C" JNIEXPORT void JNICALL
-Java_com_sportsvisio_NanoDet_init(JNIEnv *env, jclass, jobject assetManager, jboolean useGPU) {
+Java_com_sportsvisio_NanoDet_init(JNIEnv *env, jclass, jobject assetManager, jstring paramFilePath,
+                                  jstring binFilePath,
+                                  jboolean useGPU) {
     if (NanoDet::detector != nullptr) {
         delete NanoDet::detector;
         NanoDet::detector = nullptr;
     }
     if (NanoDet::detector == nullptr) {
+        const char *paramPath = env->GetStringUTFChars(paramFilePath, nullptr);
+        const char *binPath = env->GetStringUTFChars(binFilePath, nullptr);
         AAssetManager *mgr = AAssetManager_fromJava(env, assetManager);
-        NanoDet::detector = new NanoDet(mgr, "nanodet_m.param", "nanodet_m.bin", useGPU);
+        NanoDet::detector = new NanoDet(mgr, paramPath, binPath, useGPU);
     }
 }
 
 extern "C" JNIEXPORT jobjectArray JNICALL
-Java_com_sportsvisio_NanoDet_detect(JNIEnv *env, jclass, jobject image, jdouble threshold, jdouble nms_threshold) {
+Java_com_sportsvisio_NanoDet_detect(JNIEnv *env, jclass, jobject image, jdouble threshold,
+                                    jdouble nms_threshold) {
     auto result = NanoDet::detector->detect(env, image, threshold, nms_threshold);
 
     auto box_cls = env->FindClass("com/sportsvisio/Box");
     auto cid = env->GetMethodID(box_cls, "<init>", "(FFFFIF)V");
     jobjectArray ret = env->NewObjectArray(result.size(), box_cls, nullptr);
     int i = 0;
-    for (auto &box:result) {
+    for (auto &box: result) {
         env->PushLocalFrame(1);
-        jobject obj = env->NewObject(box_cls, cid, box.x1, box.y1, box.x2, box.y2, box.label, box.score);
+        jobject obj = env->NewObject(box_cls, cid, box.x1, box.y1, box.x2, box.y2, box.label,
+                                     box.score);
         obj = env->PopLocalFrame(obj);
         env->SetObjectArrayElement(ret, i++, obj);
     }
@@ -197,14 +212,18 @@ Java_com_sportsvisio_NanoDet_detect(JNIEnv *env, jclass, jobject image, jdouble 
  ********************************************************************************************/
 
 extern "C" JNIEXPORT void JNICALL
-Java_com_sportsvisio_SimplePose_init(JNIEnv *env, jclass clazz, jobject assetManager, jboolean useGPU) {
+Java_com_sportsvisio_SimplePose_init(JNIEnv *env, jclass clazz, jobject assetManager,
+                                     jstring paramFilePath,
+                                     jstring binFilePath, jboolean useGPU) {
     if (SimplePose::detector != nullptr) {
         delete SimplePose::detector;
         SimplePose::detector = nullptr;
     }
     if (SimplePose::detector == nullptr) {
+        const char *paramPath = env->GetStringUTFChars(paramFilePath, nullptr);
+        const char *binPath = env->GetStringUTFChars(binFilePath, nullptr);
         AAssetManager *mgr = AAssetManager_fromJava(env, assetManager);
-        SimplePose::detector = new SimplePose(mgr, useGPU);
+        SimplePose::detector = new SimplePose(mgr, paramPath, binPath, useGPU);
     }
 }
 
@@ -217,7 +236,7 @@ Java_com_sportsvisio_SimplePose_detect(JNIEnv *env, jclass clazz, jobject image)
     jobjectArray ret = env->NewObjectArray(result.size(), box_cls, nullptr);
     int i = 0;
     int KEY_NUM = 17;
-    for (auto &keypoint : result) {
+    for (auto &keypoint: result) {
         env->PushLocalFrame(1);
         float x[KEY_NUM];
         float y[KEY_NUM];
@@ -231,8 +250,9 @@ Java_com_sportsvisio_SimplePose_detect(JNIEnv *env, jclass clazz, jobject image)
         env->SetFloatArrayRegion(ys, 0, KEY_NUM, y);
 
         jobject obj = env->NewObject(box_cls, cid, xs, ys,
-                keypoint.boxInfos.x1, keypoint.boxInfos.y1, keypoint.boxInfos.x2, keypoint.boxInfos.y2,
-                keypoint.boxInfos.score);
+                                     keypoint.boxInfos.x1, keypoint.boxInfos.y1,
+                                     keypoint.boxInfos.x2, keypoint.boxInfos.y2,
+                                     keypoint.boxInfos.score);
         obj = env->PopLocalFrame(obj);
         env->SetObjectArrayElement(ret, i++, obj);
     }
@@ -272,14 +292,18 @@ jcharArray matToBitmapCharArray(JNIEnv *env, const cv::Mat &image) {
 }
 
 extern "C" JNIEXPORT void JNICALL
-Java_com_sportsvisio_Yolact_init(JNIEnv *env, jclass clazz, jobject assetManager, jboolean useGPU) {
+Java_com_sportsvisio_Yolact_init(JNIEnv *env, jclass clazz, jobject assetManager,
+                                 jstring paramFilePath,
+                                 jstring binFilePath, jboolean useGPU) {
     if (Yolact::detector != nullptr) {
         delete Yolact::detector;
         Yolact::detector = nullptr;
     }
     if (Yolact::detector == nullptr) {
+        const char *paramPath = env->GetStringUTFChars(paramFilePath, nullptr);
+        const char *binPath = env->GetStringUTFChars(binFilePath, nullptr);
         AAssetManager *mgr = AAssetManager_fromJava(env, assetManager);
-        Yolact::detector = new Yolact(mgr, useGPU);
+        Yolact::detector = new Yolact(mgr, paramPath, binPath, useGPU);
     }
 }
 
@@ -292,7 +316,7 @@ Java_com_sportsvisio_Yolact_detect(JNIEnv *env, jclass clazz, jobject image) {
     auto cid = env->GetMethodID(yolact_mask, "<init>", "(FFFFIF[F[C)V");
     jobjectArray ret = env->NewObjectArray(result.size(), yolact_mask, nullptr);
     int i = 0;
-    for (auto &mask : result) {
+    for (auto &mask: result) {
 //        LOGD("jni yolact mask rect x:%f y:%f", mask.rect.x, mask.rect.y);
 //        LOGD("jni yolact maskdata size:%d", mask.maskdata.size());
 //        LOGD("jni yolact mask size:%d", mask.mask.cols * mask.mask.rows);
@@ -322,6 +346,7 @@ Java_com_sportsvisio_Yolact_detect(JNIEnv *env, jclass clazz, jobject image) {
 /*********************************************************************************************
                                          chineseocr-lite
  ********************************************************************************************/
+/*
 jstring str2jstring(JNIEnv *env, const char *pat) {
     //定义java String类 strClass
     jclass strClass = (env)->FindClass("java/lang/String");
@@ -357,14 +382,15 @@ std::string jstring2str(JNIEnv *env, jstring jstr) {
 }
 
 extern "C" JNIEXPORT void JNICALL
-Java_com_sportsvisio_ocr_ChineseOCRLite_init(JNIEnv *env, jclass clazz, jobject assetManager, jboolean useGPU) {
+Java_com_sportsvisio_ocr_ChineseOCRLite_init(JNIEnv *env, jclass clazz, jstring paramFilePath, jstring binFilePath, jboolean useGPU) {
     if (OCR::detector != nullptr) {
         delete OCR::detector;
         OCR::detector = nullptr;
     }
     if (OCR::detector == nullptr) {
-        AAssetManager *mgr = AAssetManager_fromJava(env, assetManager);
-        OCR::detector = new OCR(env, clazz, mgr, useGPU);
+        const char* paramPath = env->GetStringUTFChars(paramFilePath, nullptr);
+        const char* binPath = env->GetStringUTFChars(binFilePath, nullptr);
+        OCR::detector = new OCR(env, clazz, paramPath, binPath, useGPU);
     }
 }
 
@@ -417,19 +443,23 @@ Java_com_sportsvisio_ocr_ChineseOCRLite_detect(JNIEnv *env, jclass clazz, jobjec
     return ret;
 }
 
-
+*/
 /*********************************************************************************************
                                             ENet
  ********************************************************************************************/
 extern "C" JNIEXPORT void JNICALL
-Java_com_sportsvisio_ENet_init(JNIEnv *env, jclass, jobject assetManager, jboolean useGPU) {
+Java_com_sportsvisio_ENet_init(JNIEnv *env, jclass, jobject assetManager, jstring paramFilePath,
+                               jstring binFilePath,
+                               jboolean useGPU) {
     if (ENet::detector != nullptr) {
         delete ENet::detector;
         ENet::detector = nullptr;
     }
     if (ENet::detector == nullptr) {
+        const char *paramPath = env->GetStringUTFChars(paramFilePath, nullptr);
+        const char *binPath = env->GetStringUTFChars(binFilePath, nullptr);
         AAssetManager *mgr = AAssetManager_fromJava(env, assetManager);
-        ENet::detector = new ENet(mgr, useGPU);
+        ENet::detector = new ENet(mgr, paramPath, binPath, useGPU);
     }
 }
 
@@ -459,14 +489,18 @@ Java_com_sportsvisio_ENet_detect(JNIEnv *env, jclass, jobject image) {
                                         MobileNetv3_Seg
  ********************************************************************************************/
 extern "C" JNIEXPORT void JNICALL
-Java_com_sportsvisio_MbnSeg_init(JNIEnv *env, jclass, jobject assetManager, jboolean useGPU) {
+Java_com_sportsvisio_MbnSeg_init(JNIEnv *env, jclass, jobject assetManager, jstring paramFilePath,
+                                 jstring binFilePath,
+                                 jboolean useGPU) {
     if (MBNV3Seg::detector != nullptr) {
         delete MBNV3Seg::detector;
         MBNV3Seg::detector = nullptr;
     }
     if (MBNV3Seg::detector == nullptr) {
+        const char *paramPath = env->GetStringUTFChars(paramFilePath, nullptr);
+        const char *binPath = env->GetStringUTFChars(binFilePath, nullptr);
         AAssetManager *mgr = AAssetManager_fromJava(env, assetManager);
-        MBNV3Seg::detector = new MBNV3Seg(mgr, useGPU);
+        MBNV3Seg::detector = new MBNV3Seg(mgr, paramPath, binPath, useGPU);
     }
 }
 
@@ -496,14 +530,18 @@ Java_com_sportsvisio_MbnSeg_detect(JNIEnv *env, jclass, jobject image) {
                                         MobileNetv2_FCN
  ********************************************************************************************/
 extern "C" JNIEXPORT void JNICALL
-Java_com_sportsvisio_MbnFCN_init(JNIEnv *env, jclass, jobject assetManager, jboolean useGPU) {
+Java_com_sportsvisio_MbnFCN_init(JNIEnv *env, jclass, jobject assetManager, jstring paramFilePath,
+                                 jstring binFilePath,
+                                 jboolean useGPU) {
     if (MbnFCN::detector != nullptr) {
         delete MbnFCN::detector;
         MbnFCN::detector = nullptr;
     }
     if (MbnFCN::detector == nullptr) {
+        const char *paramPath = env->GetStringUTFChars(paramFilePath, nullptr);
+        const char *binPath = env->GetStringUTFChars(binFilePath, nullptr);
         AAssetManager *mgr = AAssetManager_fromJava(env, assetManager);
-        MbnFCN::detector = new MbnFCN(mgr, useGPU);
+        MbnFCN::detector = new MbnFCN(mgr, paramPath, binPath, useGPU);
     }
 }
 
@@ -534,14 +572,18 @@ Java_com_sportsvisio_MbnFCN_detect(JNIEnv *env, jclass, jobject image) {
  ********************************************************************************************/
 
 extern "C" JNIEXPORT void JNICALL
-Java_com_sportsvisio_FaceLandmark_init(JNIEnv *env, jclass clazz, jobject assetManager, jboolean useGPU) {
+Java_com_sportsvisio_FaceLandmark_init(JNIEnv *env, jclass clazz, jobject assetManager,
+                                       jstring paramFilePath,
+                                       jstring binFilePath, jboolean useGPU) {
     if (FaceLandmark::detector != nullptr) {
         delete FaceLandmark::detector;
         FaceLandmark::detector = nullptr;
     }
     if (FaceLandmark::detector == nullptr) {
+        const char *paramPath = env->GetStringUTFChars(paramFilePath, nullptr);
+        const char *binPath = env->GetStringUTFChars(binFilePath, nullptr);
         AAssetManager *mgr = AAssetManager_fromJava(env, assetManager);
-        FaceLandmark::detector = new FaceLandmark(mgr, useGPU);
+        FaceLandmark::detector = new FaceLandmark(mgr, paramPath, binPath, useGPU);
     }
 }
 
@@ -553,7 +595,7 @@ Java_com_sportsvisio_FaceLandmark_detect(JNIEnv *env, jclass clazz, jobject imag
     auto cid = env->GetMethodID(box_cls, "<init>", "(FF)V");
     jobjectArray ret = env->NewObjectArray(result.size(), box_cls, nullptr);
     int i = 0;
-    for (auto &keypoint : result) {
+    for (auto &keypoint: result) {
         env->PushLocalFrame(1);
         jobject obj = env->NewObject(box_cls, cid, keypoint.p.x, keypoint.p.y);
         obj = env->PopLocalFrame(obj);
@@ -567,19 +609,24 @@ Java_com_sportsvisio_FaceLandmark_detect(JNIEnv *env, jclass clazz, jobject imag
                                             DBFace
  ********************************************************************************************/
 extern "C" JNIEXPORT void JNICALL
-Java_com_sportsvisio_DBFace_init(JNIEnv *env, jclass clazz, jobject assetManager, jboolean useGPU) {
+Java_com_sportsvisio_DBFace_init(JNIEnv *env, jclass clazz, jobject assetManager,
+                                 jstring paramFilePath,
+                                 jstring binFilePath, jboolean useGPU) {
     if (DBFace::detector != nullptr) {
         delete DBFace::detector;
         DBFace::detector = nullptr;
     }
     if (DBFace::detector == nullptr) {
+        const char *paramPath = env->GetStringUTFChars(paramFilePath, nullptr);
+        const char *binPath = env->GetStringUTFChars(binFilePath, nullptr);
         AAssetManager *mgr = AAssetManager_fromJava(env, assetManager);
-        DBFace::detector = new DBFace(mgr, useGPU);
+        DBFace::detector = new DBFace(mgr, paramPath, binPath, useGPU);
     }
 }
 
 extern "C" JNIEXPORT jobjectArray JNICALL
-Java_com_sportsvisio_DBFace_detect(JNIEnv *env, jclass clazz, jobject image, jdouble threshold, jdouble nms_threshold) {
+Java_com_sportsvisio_DBFace_detect(JNIEnv *env, jclass clazz, jobject image, jdouble threshold,
+                                   jdouble nms_threshold) {
     auto result = DBFace::detector->detect(env, image, threshold, nms_threshold);
 //    LOGD("jni dbface size:%d %f %f", result.size(), threshold, nms_threshold);
 
@@ -588,7 +635,7 @@ Java_com_sportsvisio_DBFace_detect(JNIEnv *env, jclass clazz, jobject image, jdo
     jobjectArray ret = env->NewObjectArray(result.size(), box_cls, nullptr);
     int i = 0;
     int KEY_NUM = 5;
-    for (auto &keypoint : result) {
+    for (auto &keypoint: result) {
         env->PushLocalFrame(1);
         float x[KEY_NUM];
         float y[KEY_NUM];
@@ -616,14 +663,18 @@ Java_com_sportsvisio_DBFace_detect(JNIEnv *env, jclass clazz, jobject image, jdo
  ********************************************************************************************/
 
 extern "C" JNIEXPORT void JNICALL
-Java_com_sportsvisio_LightOpenPose_init(JNIEnv *env, jclass clazz, jobject assetManager, jboolean useGPU) {
+Java_com_sportsvisio_LightOpenPose_init(JNIEnv *env, jclass clazz, jobject assetManager,
+                                        jstring paramFilePath,
+                                        jstring binFilePath, jboolean useGPU) {
     if (LightOpenPose::detector != nullptr) {
         delete LightOpenPose::detector;
         LightOpenPose::detector = nullptr;
     }
     if (LightOpenPose::detector == nullptr) {
+        const char *paramPath = env->GetStringUTFChars(paramFilePath, nullptr);
+        const char *binPath = env->GetStringUTFChars(binFilePath, nullptr);
         AAssetManager *mgr = AAssetManager_fromJava(env, assetManager);
-        LightOpenPose::detector = new LightOpenPose(mgr, useGPU);
+        LightOpenPose::detector = new LightOpenPose(mgr, paramPath, binPath, useGPU);
     }
 }
 
@@ -636,7 +687,7 @@ Java_com_sportsvisio_LightOpenPose_detect(JNIEnv *env, jclass clazz, jobject ima
     jobjectArray ret = env->NewObjectArray(poses.size(), box_cls, nullptr);
     int i = 0;
     int KEY_NUM = 18;
-    for (auto &pose : poses) {
+    for (auto &pose: poses) {
         env->PushLocalFrame(1);
         float x[KEY_NUM];
         float y[KEY_NUM];
@@ -654,5 +705,4 @@ Java_com_sportsvisio_LightOpenPose_detect(JNIEnv *env, jclass clazz, jobject ima
         env->SetObjectArrayElement(ret, i++, obj);
     }
     return ret;
-
 }

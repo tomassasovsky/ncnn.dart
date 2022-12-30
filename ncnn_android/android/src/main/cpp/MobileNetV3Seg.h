@@ -17,7 +17,8 @@
 
 class MBNV3Seg {
 public:
-    MBNV3Seg(AAssetManager *mgr, bool useGPU);
+    MBNV3Seg(AAssetManager *assetManager, const char *paramFilePath, const char *binFilePath,
+           bool useGPU);
     ~MBNV3Seg();
 
     ncnn::Mat detect_mbnseg(JNIEnv *env, jobject image);

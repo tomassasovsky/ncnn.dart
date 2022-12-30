@@ -11,7 +11,8 @@ bool MbnFCN::hasGPU = true;
 bool MbnFCN::toUseGPU = true;
 MbnFCN *MbnFCN::detector = nullptr;
 
-MbnFCN::MbnFCN(AAssetManager *mgr, bool useGPU) {
+MbnFCN::MbnFCN(AAssetManager *assetManager, const char *paramFilePath, const char *binFilePath,
+           bool useGPU) {
     hasGPU = ncnn::get_gpu_count() > 0;
     toUseGPU = hasGPU && useGPU;
 
@@ -19,8 +20,8 @@ MbnFCN::MbnFCN(AAssetManager *mgr, bool useGPU) {
     // opt 需要在加载前设置
     MBNFCNsim->opt.use_vulkan_compute = toUseGPU;  // gpu
     MBNFCNsim->opt.use_fp16_arithmetic = true;  // fp16运算加速
-    MBNFCNsim->load_param(mgr, "fcn_mbv2-sim-opt.param");
-    MBNFCNsim->load_model(mgr, "fcn_mbv2-sim-opt.bin");
+    MBNFCNsim->load_param(paramFilePath);
+    MBNFCNsim->load_model(binFilePath);
 //    LOGD("mbnfcn_detector");
 
 }
