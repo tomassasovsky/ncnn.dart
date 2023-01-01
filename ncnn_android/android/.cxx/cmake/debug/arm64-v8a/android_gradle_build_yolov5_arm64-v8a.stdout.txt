@@ -1,2 +1,0 @@
-ninja: Entering directory `C:\Users\Tomas\Documents\Work\sportsvisio\ncnn\ncnn_android\android\.cxx\cmake\debug\arm64-v8a'
-ninja: no work to do.

@@ -1,7 +1,0 @@
-Executable : C:\Users\Tomas\AppData\Local\Android\sdk\cmake\3.10.2.4988404\bin\ninja.exe
-arguments : 
--C
-C:\Users\Tomas\Documents\Work\sportsvisio\ncnn\ncnn_android\android\.cxx\cmake\debug\armeabi-v7a
-yolov5
-jvmArgs : 
-

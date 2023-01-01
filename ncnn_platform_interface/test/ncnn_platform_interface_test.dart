@@ -26,14 +26,19 @@ class NcnnMock extends NcnnPlatform {
   }) async {}
 
   @override
-  Future<List<Box>?> detect({
+  Future<DetectionResult> detect({
     required Uint8List imageData,
     img_lib.Format format = img_lib.Format.bgr,
     required ModelType modelType,
     double threshold = 0.4,
     double nmsThreshold = 0.6,
   }) async =>
-      null;
+      DetectionResult(
+        [],
+        Duration.zero,
+        Duration.zero,
+        img_lib.Image(0, 0),
+      );
 }
 
 void main() {

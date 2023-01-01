@@ -7,13 +7,13 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:image/image.dart' as img_lib;
-import 'package:ncnn_platform_interface/src/box.dart';
+import 'package:ncnn_platform_interface/ncnn_platform_interface.dart';
 import 'package:ncnn_platform_interface/src/method_channel_ncnn.dart';
-import 'package:ncnn_platform_interface/src/model_types.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 export 'package:image/image.dart' show Format, Image;
 export 'src/box.dart';
+export 'src/detection_result.dart';
 export 'src/model_types.dart';
 
 /// The interface that implementations of ncnn must implement.
@@ -55,7 +55,7 @@ abstract class NcnnPlatform extends PlatformInterface {
   });
 
   /// Detects an image using an initialized model.
-  Future<List<Box>?> detect({
+  Future<DetectionResult> detect({
     required Uint8List imageData,
     img_lib.Format format,
     required ModelType modelType,

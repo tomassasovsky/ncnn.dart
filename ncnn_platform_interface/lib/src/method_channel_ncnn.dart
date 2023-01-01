@@ -42,13 +42,14 @@ class MethodChannelNcnn extends NcnnPlatform {
   /// Detects an image using an initialized model.
 
   @override
-  Future<List<Box>?> detect({
+  Future<DetectionResult> detect({
     required Uint8List imageData,
     Format format = Format.rgba,
     required ModelType modelType,
     double threshold = 0.4,
     double nmsThreshold = 0.6,
   }) async {
+    final stopwatch = Stopwatch()..start();
     final decodedImage = await decodeImageFromList(imageData);
     final image = Image.fromBytes(
       decodedImage.width,
@@ -56,6 +57,11 @@ class MethodChannelNcnn extends NcnnPlatform {
       imageData,
       format: format,
     );
+
+    final imageConversionTime = stopwatch.elapsed;
+    stopwatch
+      ..reset()
+      ..start();
 
     final result = await methodChannel.invokeListMethod<Map<dynamic, dynamic>>(
       'detect',
@@ -69,6 +75,14 @@ class MethodChannelNcnn extends NcnnPlatform {
       },
     );
 
-    return result?.map((e) => Box.fromMap(e.cast())).toList();
+    stopwatch.stop();
+    final detectionTime = stopwatch.elapsed;
+
+    return DetectionResult(
+      result?.map((e) => Box.fromMap(e.cast())).toList(),
+      detectionTime,
+      imageConversionTime,
+      image,
+    );
   }
 }

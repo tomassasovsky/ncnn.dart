@@ -24,7 +24,7 @@ class CameraPage extends StatefulWidget {
 class _CameraPageState extends State<CameraPage> {
   final ValueNotifier<bool> _isCameraReady = ValueNotifier(false);
   final ValueNotifier<Duration> _detectionSpeed = ValueNotifier(Duration.zero);
-  final ValueNotifier<List<Box>> _detectionResult = ValueNotifier([]);
+  final ValueNotifier<DetectionResult?> _detectionResult = ValueNotifier(null);
   final ValueNotifier<CameraDescription> _selectedCamera =
       ValueNotifier(cameras.first);
   late CameraController _cameraController = CameraController(
@@ -89,9 +89,7 @@ class _CameraPageState extends State<CameraPage> {
       nmsThreshold: 0.5,
     );
 
-    if (result != null) {
-      _detectionResult.value = result;
-    }
+    _detectionResult.value = result;
   }
 
   @override
@@ -135,13 +133,15 @@ class _CameraPageState extends State<CameraPage> {
             return Stack(
               children: [
                 CameraPreview(_cameraController),
-                ValueListenableBuilder<List<Box>>(
+                ValueListenableBuilder<DetectionResult?>(
                   valueListenable: _detectionResult,
                   builder: (context, value, child) {
+                    if (value == null) {
+                      return const SizedBox();
+                    }
+
                     return CustomPaint(
-                      painter: DetectionResultsPainter(
-                        boxes: value,
-                      ),
+                      painter: DetectionResultsPainter(value),
                     );
                   },
                 ),

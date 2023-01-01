@@ -1,3 +1,0 @@
-C:/Users/Tomas/Documents/Work/sportsvisio/ncnn/ncnn_android/android/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/rebuild_cache.dir
-C:/Users/Tomas/Documents/Work/sportsvisio/ncnn/ncnn_android/android/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/yolov5.dir
-C:/Users/Tomas/Documents/Work/sportsvisio/ncnn/ncnn_android/android/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/edit_cache.dir

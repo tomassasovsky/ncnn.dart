@@ -5,36 +5,66 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
-import 'dart:ui' as ui;
-
 import 'package:flutter/material.dart';
 import 'package:ncnn/ncnn.dart';
 import 'package:ncnn_example/labels.dart';
 
 class DetectionResultsPainter extends CustomPainter {
-  const DetectionResultsPainter({
-    required this.boxes,
-    this.image,
-  });
+  const DetectionResultsPainter(this.result);
 
-  final List<Box> boxes;
-  final ui.Image? image;
+  final DetectionResult result;
 
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = Colors.red
-      ..strokeWidth = 2
-      ..style = PaintingStyle.stroke;
+    final detectionTime =
+        result.detectiontime.inMilliseconds.toStringAsFixed(2);
+    final imageConversionTime =
+        result.imageConversionTime.inMilliseconds.toStringAsFixed(2);
 
-    if (image != null) {
-      canvas.drawImage(image!, Offset.zero, Paint());
+    final detectionTimePainter = TextPainter(
+      text: TextSpan(
+        text: 'Detection Time: $detectionTime ms',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: size.width / 8,
+        ),
+      ),
+      textDirection: TextDirection.ltr,
+    )
+      ..layout()
+      ..paint(canvas, Offset.zero);
+
+    TextPainter(
+      text: TextSpan(
+        text: 'Image Conversion Time: $imageConversionTime ms',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: size.width / 8,
+        ),
+      ),
+      textDirection: TextDirection.ltr,
+    )
+      ..layout()
+      ..paint(
+        canvas,
+        Offset(0, detectionTimePainter.height),
+      );
+
+    final boxes = result.boxes;
+
+    if (boxes == null) {
+      return;
     }
 
     for (final box in boxes) {
+      final paint = Paint()
+        ..color = box.color
+        ..strokeWidth = size.width / 60
+        ..style = PaintingStyle.stroke;
+
       canvas.drawRect(
         box.rect,
-        paint..color = box.color,
+        paint,
       );
 
       final label = box.getLabel(labels);
@@ -45,7 +75,7 @@ class DetectionResultsPainter extends CustomPainter {
           text: '$label $score%',
           style: TextStyle(
             color: box.color,
-            fontSize: 20,
+            fontSize: size.width / 8,
           ),
         ),
         textDirection: TextDirection.ltr,
@@ -59,8 +89,8 @@ class DetectionResultsPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(DetectionResultsPainter oldDelegate) => false;
+  bool shouldRepaint(DetectionResultsPainter oldDelegate) => true;
 
   @override
-  bool shouldRebuildSemantics(DetectionResultsPainter oldDelegate) => false;
+  bool shouldRebuildSemantics(DetectionResultsPainter oldDelegate) => true;
 }

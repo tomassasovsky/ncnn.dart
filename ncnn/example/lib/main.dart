@@ -5,6 +5,7 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:camera/camera.dart';
@@ -12,7 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:ncnn/ncnn.dart';
 import 'package:ncnn_example/camera_page.dart';
-import 'package:ncnn_example/labels.dart';
 import 'package:ncnn_example/result_page.dart';
 
 List<CameraDescription> cameras = [];
@@ -42,6 +42,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String? _platformName;
+  List<DetectionResult> results = [];
 
   @override
   Widget build(BuildContext context) {
@@ -78,36 +79,64 @@ class _HomePageState extends State<HomePage> {
                   );
                 }
               },
-              child: const Text('Initialize Model'),
+              child: const Text('Initialize Model (CPU)'),
             ),
             ElevatedButton(
               onPressed: () async {
                 try {
-                  final byteData =
-                      await rootBundle.load('assets/keyboard_mouse.png');
-                  final imageBytes = byteData.buffer.asUint8List();
-
-                  final decodedImage = await decodeImageFromList(imageBytes);
-
-                  final result = await NcnnPlatform.instance.detect(
-                    imageData: imageBytes,
+                  const name = 'yolo-fastest-opt';
+                  await NcnnPlatform.instance.initialize(
+                    binFile: 'assets/$name.bin',
+                    paramFile: 'assets/$name.param',
                     modelType: ModelType.YOLOFastestXL,
+                    useGPU: true,
+                  );
+                } catch (error, stacktrace) {
+                  log('$error', stackTrace: stacktrace);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: Theme.of(context).primaryColor,
+                      content: Text('$error'),
+                    ),
+                  );
+                }
+              },
+              child: const Text('Initialize Model (GPU)'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                results = <DetectionResult>[];
+
+                try {
+                  final allAssets = await rootBundle
+                      .loadString('AssetManifest.json')
+                      .then(jsonDecode) as Map<String, dynamic>;
+
+                  final pngAssets = allAssets.entries.where(
+                    (element) => element.key.endsWith('.png'),
                   );
 
-                  log(result.toString());
-                  result?.forEach((element) {
-                    final label = labels[element.labelId];
-                    log('Recognized: $label');
-                  });
+                  for (final asset in pngAssets) {
+                    final byteData = await rootBundle.load(asset.key);
+                    final imageBytes = byteData.buffer.asUint8List();
+
+                    final result = await NcnnPlatform.instance.detect(
+                      imageData: imageBytes,
+                      modelType: ModelType.YOLOFastestXL,
+                    );
+
+                    debugPrint(
+                      'Image conversion time (flutter): '
+                      '${result.imageConversionTime.inMilliseconds} ms',
+                    );
+                    results.add(result);
+                  }
 
                   if (!mounted) return;
 
                   await Navigator.of(context).push(
                     MaterialPageRoute<void>(
-                      builder: (context) => ResultPage(
-                        boxes: result!,
-                        image: decodedImage,
-                      ),
+                      builder: (context) => ResultPage(results),
                     ),
                   );
                 } catch (error, stacktrace) {

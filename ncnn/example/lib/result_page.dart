@@ -6,38 +6,53 @@
 // https://opensource.org/licenses/MIT.
 
 import 'dart:math';
-import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
 import 'package:ncnn/ncnn.dart';
 import 'package:ncnn_example/custom_painter_box.dart';
 
 class ResultPage extends StatelessWidget {
-  const ResultPage({
-    required this.boxes,
-    required this.image,
+  const ResultPage(
+    this.results, {
     super.key,
   });
 
-  final List<Box> boxes;
-  final ui.Image image;
+  final List<DetectionResult> results;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Result')),
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          final scale = min(
-            constraints.maxWidth / image.width,
-            constraints.maxHeight / image.height,
-          );
+      body: ListView.builder(
+        physics: const BouncingScrollPhysics(
+          parent: AlwaysScrollableScrollPhysics(),
+        ),
+        itemCount: results.length,
+        itemBuilder: (context, index) {
+          final entry = results.elementAt(index);
 
-          return Transform.scale(
-            scale: scale,
-            child: CustomPaint(
-              painter: DetectionResultsPainter(
-                boxes: boxes,
-                image: image,
+          final image = entry.decodedImage;
+
+          final imageWidth = image.width.toDouble();
+          final screenWidth = MediaQuery.of(context).size.width;
+          final width = min(imageWidth, screenWidth);
+
+          // percentual height of the screen to be used for the image
+          final height = width * image.height / image.width;
+
+          return SizedBox(
+            width: width,
+            height: height,
+            child: FittedBox(
+              fit: BoxFit.cover,
+              child: Stack(
+                children: [
+                  Image.memory(image.getBytes()),
+                  CustomPaint(
+                    size: Size(width, height),
+                    painter: DetectionResultsPainter(entry),
+                  ),
+                ],
               ),
             ),
           );
