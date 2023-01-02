@@ -12,9 +12,15 @@ import 'package:ncnn/ncnn.dart';
 import 'package:ncnn_example/labels.dart';
 
 class DetectionResultsPainter extends CustomPainter {
-  const DetectionResultsPainter(this.result);
+  const DetectionResultsPainter(
+    this.result,
+    this.currentFps,
+    this.avgFps,
+  );
 
   final DetectionResult result;
+  final double currentFps;
+  final double avgFps;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -50,6 +56,22 @@ class DetectionResultsPainter extends CustomPainter {
       detectionTimeTextSize.height +
           imageConversionTimeTextSize.height +
           fullDetectionTimeTextSize.height,
+    );
+
+    final fpsTextSize = drawRightSideText(
+      canvas,
+      size,
+      'FPS: ${currentFps.toStringAsFixed(2)}',
+      0,
+      0,
+    );
+
+    drawRightSideText(
+      canvas,
+      size,
+      'Average FPS: ${avgFps.toStringAsFixed(2)}',
+      0,
+      fpsTextSize.height,
     );
 
     final boxes = result.boxes;
@@ -122,6 +144,28 @@ class DetectionResultsPainter extends CustomPainter {
     )
       ..layout()
       ..paint(canvas, Offset(x, y));
+
+    return textPainter.size;
+  }
+
+  Size drawRightSideText(
+    Canvas canvas,
+    Size size,
+    String text,
+    double x,
+    double y,
+  ) {
+    final textPainter = TextPainter(
+      text: TextSpan(
+        text: text,
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 20,
+        ),
+      ),
+      textDirection: TextDirection.ltr,
+    )..layout();
+    textPainter.paint(canvas, Offset(size.width - textPainter.width, y));
 
     return textPainter.size;
   }

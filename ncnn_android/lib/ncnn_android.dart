@@ -74,4 +74,44 @@ class NcnnAndroid extends NcnnPlatform {
       fullDetectionTime: stopwatch.elapsed,
     );
   }
+
+  @override
+  Future<DetectionResult> detectOnCameraImage({
+    required CameraImage cameraImage,
+    required ModelType modelType,
+    double threshold = 0.4,
+    double nmsThreshold = 0.6,
+  }) async {
+    final stopwatch = Stopwatch()..start();
+
+    final result = await methodChannel.invokeMapMethod<String, dynamic>(
+      'detectOnCameraImage',
+      <String, dynamic>{
+        ...serializeCameraImage(cameraImage),
+        'imageWidth': cameraImage.width,
+        'imageHeight': cameraImage.height,
+        'modelType': modelType.name,
+        'threshold': threshold,
+        'nmsThreshold': nmsThreshold,
+      },
+    );
+
+    stopwatch.stop();
+
+    if (result == null) {
+      throw Exception('Detection failed');
+    }
+
+    final image = result['bytes'] as Uint8List?;
+
+    if (image == null) {
+      throw Exception('Detection failed: no image returned');
+    }
+
+    return DetectionResult.fromMap(
+      result,
+      bytes: image,
+      fullDetectionTime: stopwatch.elapsed,
+    );
+  }
 }

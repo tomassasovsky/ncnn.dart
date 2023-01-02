@@ -7,6 +7,7 @@ environment:
   flutter: ">=3.3.1"
 
 dependencies:
+  camera: ^0.10.1
   flutter:
     sdk: flutter
   meta: ^1.8.0

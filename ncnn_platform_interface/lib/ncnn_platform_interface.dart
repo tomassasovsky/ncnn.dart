@@ -10,7 +10,10 @@ import 'package:ncnn_platform_interface/ncnn_platform_interface.dart';
 import 'package:ncnn_platform_interface/src/method_channel_ncnn.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
+export 'package:camera/camera.dart' show CameraImage, Plane;
+
 export 'src/box.dart';
+export 'src/camera_plane_serializable.dart';
 export 'src/detection_result.dart';
 export 'src/model_types.dart';
 
@@ -55,6 +58,14 @@ abstract class NcnnPlatform extends PlatformInterface {
   /// Detects an image using an initialized model.
   Future<DetectionResult> detect({
     required Uint8List imageData,
+    required ModelType modelType,
+    double threshold,
+    double nmsThreshold,
+  });
+
+  /// Detects on a camera image using an initialized model.
+  Future<DetectionResult> detectOnCameraImage({
+    required CameraImage cameraImage,
     required ModelType modelType,
     double threshold,
     double nmsThreshold,

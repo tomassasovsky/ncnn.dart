@@ -40,6 +40,23 @@ class NcnnMock extends NcnnPlatform {
         0,
         0,
       );
+
+  @override
+  Future<DetectionResult> detectOnCameraImage({
+    required CameraImage cameraImage,
+    required ModelType modelType,
+    double threshold = 0.4,
+    double nmsThreshold = 0.6,
+  }) async =>
+      DetectionResult.fromBytes(
+        [],
+        Duration.zero,
+        Duration.zero,
+        Duration.zero,
+        Uint8List(0),
+        0,
+        0,
+      );
 }
 
 void main() {

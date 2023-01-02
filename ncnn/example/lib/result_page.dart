@@ -50,7 +50,11 @@ class ResultPage extends StatelessWidget {
                   Image.memory(image),
                   CustomPaint(
                     size: Size(width, height),
-                    painter: DetectionResultsPainter(entry),
+                    painter: DetectionResultsPainter(
+                      entry,
+                      0,
+                      0,
+                    ),
                   ),
                 ],
               ),

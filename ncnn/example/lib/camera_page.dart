@@ -6,16 +6,14 @@
 // https://opensource.org/licenses/MIT.
 
 import 'dart:async';
-import 'dart:developer';
 import 'dart:math' as math;
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:ncnn/ncnn.dart';
 import 'package:ncnn_example/custom_painter_box.dart';
-import 'package:ncnn_example/labels.dart';
 import 'package:ncnn_example/main.dart';
-import 'package:ncnn_example/utils/camera_encoding.dart';
 
 class CameraPage extends StatefulWidget {
   const CameraPage({super.key});
@@ -25,6 +23,10 @@ class CameraPage extends StatefulWidget {
 }
 
 class _CameraPageState extends State<CameraPage> {
+  double currentFps = 0;
+  double totalFps = 0;
+  int fpsCount = 0;
+
   final ValueNotifier<bool> _cameraInitialized = ValueNotifier(false);
   final ValueNotifier<Duration> _detectionSpeed = ValueNotifier(Duration.zero);
   final ValueNotifier<DetectionResult?> _detectionResult = ValueNotifier(null);
@@ -32,7 +34,7 @@ class _CameraPageState extends State<CameraPage> {
       ValueNotifier(cameras.first);
   late CameraController _cameraController = CameraController(
     _selectedCamera.value,
-    ResolutionPreset.medium,
+    ResolutionPreset.ultraHigh,
     enableAudio: false,
   );
   bool _isDetecting = false;
@@ -41,6 +43,7 @@ class _CameraPageState extends State<CameraPage> {
   @override
   void initState() {
     super.initState();
+
     _cameraInitialized.addListener(() {
       if (_cameraInitialized.value) {
         _cameraController.startImageStream(_detect);
@@ -48,7 +51,15 @@ class _CameraPageState extends State<CameraPage> {
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await SystemChrome.setPreferredOrientations([
+        DeviceOrientation.landscapeLeft,
+        DeviceOrientation.landscapeRight,
+      ]);
+
       await _cameraController.initialize();
+      await _cameraController.lockCaptureOrientation(
+        DeviceOrientation.landscapeLeft,
+      );
       await _cameraController.prepareForVideoRecording();
       _cameraInitialized.value = true;
     });
@@ -60,6 +71,8 @@ class _CameraPageState extends State<CameraPage> {
     _cameraInitialized.dispose();
     _detectionResult.dispose();
     _selectedCamera.dispose();
+
+    SystemChrome.setPreferredOrientations(DeviceOrientation.values);
     super.dispose();
   }
 
@@ -70,23 +83,20 @@ class _CameraPageState extends State<CameraPage> {
       ..reset()
       ..start();
 
-    final imageData = await cameraImageToUint8List(image);
-
-    if (imageData == null) {
-      log('Failed to convert image to uint8list');
-      return;
-    }
-
-    final result = await NcnnPlatform.instance.detect(
-      imageData: imageData,
+    final result = await NcnnPlatform.instance.detectOnCameraImage(
+      cameraImage: image,
       modelType: ModelType.YOLOFastestXL,
       threshold: 0.5,
       nmsThreshold: 0.5,
     );
 
+    if (!mounted) return;
+
     _detectionResult.value = result;
-    log('Detection: ${result.toString(labels)}');
     stopwatch.stop();
+    currentFps = 1000 / stopwatch.elapsedMilliseconds;
+    totalFps += currentFps;
+    fpsCount++;
     _detectionSpeed.value = stopwatch.elapsed;
     _isDetecting = false;
   }
@@ -157,7 +167,11 @@ class _CameraPageState extends State<CameraPage> {
                       return CustomPaint(
                         size: Size(width, height),
                         willChange: true,
-                        painter: DetectionResultsPainter(detection),
+                        painter: DetectionResultsPainter(
+                          detection,
+                          currentFps,
+                          totalFps / fpsCount,
+                        ),
                       );
                     },
                   ),
