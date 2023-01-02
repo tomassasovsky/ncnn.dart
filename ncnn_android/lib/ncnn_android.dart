@@ -6,7 +6,6 @@
 // https://opensource.org/licenses/MIT.
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:ncnn_platform_interface/ncnn_platform_interface.dart';
 
@@ -47,29 +46,16 @@ class NcnnAndroid extends NcnnPlatform {
   @override
   Future<DetectionResult> detect({
     required Uint8List imageData,
-    Format format = Format.rgba,
     required ModelType modelType,
     double threshold = 0.4,
     double nmsThreshold = 0.6,
   }) async {
     final stopwatch = Stopwatch()..start();
-    final decodedImage = await decodeImageFromList(imageData);
-    final image = Image.fromBytes(
-      decodedImage.width,
-      decodedImage.height,
-      imageData,
-      format: format,
-    );
 
-    final imageConversionTime = stopwatch.elapsed;
-    stopwatch
-      ..reset()
-      ..start();
-
-    final result = await methodChannel.invokeListMethod<Map<dynamic, dynamic>>(
+    final result = await methodChannel.invokeMapMethod<String, dynamic>(
       'detect',
       <String, dynamic>{
-        'imageData': image.getBytes(),
+        'imageData': imageData,
         'modelType': modelType.name,
         'threshold': threshold,
         'nmsThreshold': nmsThreshold,
@@ -77,13 +63,15 @@ class NcnnAndroid extends NcnnPlatform {
     );
 
     stopwatch.stop();
-    final detectionTime = stopwatch.elapsed;
 
-    return DetectionResult(
-      result?.map((e) => Box.fromMap(e.cast())).toList(),
-      detectionTime,
-      imageConversionTime,
-      image,
+    if (result == null) {
+      throw Exception('Detection failed');
+    }
+
+    return DetectionResult.fromMap(
+      result,
+      bytes: imageData,
+      fullDetectionTime: stopwatch.elapsed,
     );
   }
 }

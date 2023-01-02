@@ -59,8 +59,18 @@ class Box {
   String getLabel(List<String> labels) => labels[labelId];
 
   @override
-  String toString() {
+  String toString([List<String>? labels]) {
     return 'Box{left: $left, top: $top, right: $right, bottom: $bottom, '
-        'labelId: $labelId, score: $score}';
+        'labelId: $labelId, score: $score, '
+        '${labels == null ? '' : 'label: ${getLabel(labels)}'}';
+  }
+}
+
+/// An extension on [List<Box>] to add a [toStringWithLabels] method.
+/// This is used to print the list of boxes with their labels.
+extension BoxList on List<Box> {
+  /// Returns the list of boxes as a string.
+  String toStringWithLabels([List<String>? labels]) {
+    return 'Boxes{${map((e) => e.toString(labels)).join(', ')}}';
   }
 }

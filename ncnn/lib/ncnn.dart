@@ -5,5 +5,4 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
-export 'package:ncnn_platform_interface/ncnn_platform_interface.dart'
-    hide Image;
+export 'package:ncnn_platform_interface/ncnn_platform_interface.dart';

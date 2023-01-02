@@ -31,14 +31,14 @@ class ResultPage extends StatelessWidget {
         itemBuilder: (context, index) {
           final entry = results.elementAt(index);
 
-          final image = entry.decodedImage;
+          final image = entry.bytes;
 
-          final imageWidth = image.width.toDouble();
+          final imageWidth = entry.imageWidth.toDouble();
           final screenWidth = MediaQuery.of(context).size.width;
           final width = min(imageWidth, screenWidth);
 
           // percentual height of the screen to be used for the image
-          final height = width * image.height / image.width;
+          final height = width * (entry.imageHeight) / (entry.imageWidth);
 
           return SizedBox(
             width: width,
@@ -47,7 +47,7 @@ class ResultPage extends StatelessWidget {
               fit: BoxFit.cover,
               child: Stack(
                 children: [
-                  Image.memory(image.getBytes()),
+                  Image.memory(image),
                   CustomPaint(
                     size: Size(width, height),
                     painter: DetectionResultsPainter(entry),

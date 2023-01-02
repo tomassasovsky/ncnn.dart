@@ -5,6 +5,8 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:ncnn/ncnn.dart';
 import 'package:ncnn_example/labels.dart';
@@ -16,39 +18,39 @@ class DetectionResultsPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    // final scale = size.width / result.imageWidth;
+    // canvas.scale(scale);
+
     final detectionTime =
         result.detectiontime.inMilliseconds.toStringAsFixed(2);
     final imageConversionTime =
         result.imageConversionTime.inMilliseconds.toStringAsFixed(2);
 
-    final detectionTimePainter = TextPainter(
-      text: TextSpan(
-        text: 'Detection Time: $detectionTime ms',
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: size.width / 8,
-        ),
-      ),
-      textDirection: TextDirection.ltr,
-    )
-      ..layout()
-      ..paint(canvas, Offset.zero);
-
-    TextPainter(
-      text: TextSpan(
-        text: 'Image Conversion Time: $imageConversionTime ms',
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: size.width / 8,
-        ),
-      ),
-      textDirection: TextDirection.ltr,
-    )
-      ..layout()
-      ..paint(
-        canvas,
-        Offset(0, detectionTimePainter.height),
-      );
+    final detectionTimeTextSize =
+        drawText(canvas, 'Detection Time: $detectionTime ms', 0, 0);
+    final imageConversionTimeTextSize = drawText(
+      canvas,
+      'Image Conversion Time: $imageConversionTime ms',
+      0,
+      detectionTimeTextSize.height,
+    );
+    final fullDetectionTimeTextSize = drawText(
+      canvas,
+      'Full Detection Time ${result.fullDetectionTime.inMilliseconds} ms',
+      0,
+      detectionTimeTextSize.height + imageConversionTimeTextSize.height,
+    );
+    final lostTime = result.fullDetectionTime -
+        result.detectiontime -
+        result.imageConversionTime;
+    drawText(
+      canvas,
+      'Lost Time: ${lostTime.inMilliseconds} ms',
+      0,
+      detectionTimeTextSize.height +
+          imageConversionTimeTextSize.height +
+          fullDetectionTimeTextSize.height,
+    );
 
     final boxes = result.boxes;
 
@@ -59,11 +61,25 @@ class DetectionResultsPainter extends CustomPainter {
     for (final box in boxes) {
       final paint = Paint()
         ..color = box.color
-        ..strokeWidth = size.width / 60
+        ..strokeWidth = 2
         ..style = PaintingStyle.stroke;
 
+      // limit the rect to the size
+      final rect = box.rect;
+      final left = math.max<double>(0, rect.left);
+      final top = math.max<double>(0, rect.top);
+      final right = math.min<double>(
+        rect.right,
+        result.imageWidth.toDouble(),
+      );
+      final bottom = math.min<double>(
+        rect.bottom,
+        result.imageHeight.toDouble(),
+      );
+      final limitedRect = Rect.fromLTRB(left, top, right, bottom);
+
       canvas.drawRect(
-        box.rect,
+        limitedRect,
         paint,
       );
 
@@ -75,7 +91,7 @@ class DetectionResultsPainter extends CustomPainter {
           text: '$label $score%',
           style: TextStyle(
             color: box.color,
-            fontSize: size.width / 8,
+            fontSize: 20,
           ),
         ),
         textDirection: TextDirection.ltr,
@@ -86,6 +102,28 @@ class DetectionResultsPainter extends CustomPainter {
           box.rect.topLeft,
         );
     }
+  }
+
+  Size drawText(
+    Canvas canvas,
+    String text,
+    double x,
+    double y,
+  ) {
+    final textPainter = TextPainter(
+      text: TextSpan(
+        text: text,
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 20,
+        ),
+      ),
+      textDirection: TextDirection.ltr,
+    )
+      ..layout()
+      ..paint(canvas, Offset(x, y));
+
+    return textPainter.size;
   }
 
   @override

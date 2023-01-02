@@ -125,10 +125,6 @@ class _HomePageState extends State<HomePage> {
                       modelType: ModelType.YOLOFastestXL,
                     );
 
-                    debugPrint(
-                      'Image conversion time (flutter): '
-                      '${result.imageConversionTime.inMilliseconds} ms',
-                    );
                     results.add(result);
                   }
 

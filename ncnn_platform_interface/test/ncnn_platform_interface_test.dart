@@ -8,7 +8,6 @@
 import 'dart:typed_data';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:image/image.dart' as img_lib;
 import 'package:ncnn_platform_interface/ncnn_platform_interface.dart';
 
 class NcnnMock extends NcnnPlatform {
@@ -28,16 +27,18 @@ class NcnnMock extends NcnnPlatform {
   @override
   Future<DetectionResult> detect({
     required Uint8List imageData,
-    img_lib.Format format = img_lib.Format.bgr,
     required ModelType modelType,
     double threshold = 0.4,
     double nmsThreshold = 0.6,
   }) async =>
-      DetectionResult(
+      DetectionResult.fromBytes(
         [],
         Duration.zero,
         Duration.zero,
-        img_lib.Image(0, 0),
+        Duration.zero,
+        imageData,
+        0,
+        0,
       );
 }
 

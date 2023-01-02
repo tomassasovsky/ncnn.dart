@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.ColorSpace;
 
 import androidx.annotation.NonNull;
 
@@ -20,7 +21,6 @@ import java.util.HashMap;
 import java.util.Objects;
 
 import io.flutter.FlutterInjector;
-import io.flutter.Log;
 import io.flutter.embedding.engine.loader.FlutterLoader;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.MethodCall;
@@ -74,28 +74,34 @@ public class NcnnPlugin implements FlutterPlugin, MethodCallHandler {
             case "detect":
                 byte[] image = Objects.requireNonNull(call.argument("imageData"), "imageData is null");
 
-                // start timer
-                long startTime = System.currentTimeMillis();
-                Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
-                long endTime = System.currentTimeMillis();
-                Log.i("decode byte array time (native)", (endTime - startTime) + "ms");
-                if (bitmap == null) {
-                    result.error("ObjectNullException", "Bitmap is null", null);
-                    return;
-                }
-
                 modelTypeStr = call.argument("modelType");
                 modelType = ModelType.valueOf(modelTypeStr);
 
                 double threshold = Objects.requireNonNull(call.argument("threshold"), "threshold is null");
                 double nmsThreshold = Objects.requireNonNull(call.argument("nmsThreshold"), "threshold is null");
 
-                try {
-                    startTime = System.currentTimeMillis();
-                    Box[] boxes = detect(modelType, bitmap, (float) threshold, (float) nmsThreshold);
-                    endTime = System.currentTimeMillis();
+                // start timer
+                long startTime = System.currentTimeMillis();
+                // Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
+                BitmapFactory.Options bfo = new BitmapFactory.Options();
+                bfo.inPreferredConfig = Bitmap.Config.ARGB_8888;
+                bfo.inMutable = true;   // this makes an mutable bitmap
+                bfo.inPreferredColorSpace = ColorSpace.get(ColorSpace.Named.SRGB);
+                Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length, bfo);
 
-                    Log.i("detect time", (endTime - startTime) + "ms");
+                long endTime = System.currentTimeMillis();
+                long imageConversionTime = endTime - startTime;
+                if (bitmap == null) {
+                    result.error("ObjectNullException", "Bitmap is null", null);
+                    return;
+                }
+
+                startTime = System.currentTimeMillis();
+                try {
+                    Box[] boxes = detect(modelType, bitmap, (float) threshold, (float) nmsThreshold);
+
+                    endTime = System.currentTimeMillis();
+                    long detectionTime = endTime - startTime;
 
                     if (boxes == null) {
                         result.success(null);
@@ -107,7 +113,15 @@ public class NcnnPlugin implements FlutterPlugin, MethodCallHandler {
                         jsonArray.add(box.toMap());
                     }
 
-                    result.success(jsonArray);
+                    HashMap<String, Object> resultMap = new HashMap<>();
+                    resultMap.put("boxes", jsonArray);
+                    resultMap.put("time", endTime - startTime);
+                    resultMap.put("imageHeight", bitmap.getHeight());
+                    resultMap.put("imageWidth", bitmap.getWidth());
+                    resultMap.put("imageConversionTime", imageConversionTime);
+                    resultMap.put("detectionTime", detectionTime);
+
+                    result.success(resultMap);
                 } catch (Exception e) {
                     result.error(e.getClass().getName(), e.getMessage(), Arrays.toString(e.getStackTrace()));
                     return;
