@@ -6,6 +6,10 @@
 // https://opensource.org/licenses/MIT.
 
 const labels = [
+  'basketball',
+  'person',
+  'hoop'
+]; /*
   'person',
   'bicycle',
   'car',
@@ -87,3 +91,4 @@ const labels = [
   'hair drier',
   'toothbrush'
 ];
+*/

@@ -135,54 +135,60 @@ class _CameraPageState extends State<CameraPage> {
           ),
         ],
       ),
-      body: ValueListenableBuilder<bool>(
-        valueListenable: _cameraInitialized,
-        builder: (context, cameraInitialized, child) {
-          if (cameraInitialized) {
-            final imageWidth = _cameraController.value.previewSize!.width;
-            final imageHeight = _cameraController.value.previewSize!.height;
-            final screenWidth = MediaQuery.of(context).size.width;
-
-            // percentual width of the screen to be used for the image
-            final width = math.min(imageWidth, screenWidth);
-
-            // percentual height of the screen to be used for the image
-            final height = width * imageHeight / imageWidth;
-
-            return Center(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  maxWidth: width,
-                  maxHeight: height,
-                ),
-                child: CameraPreview(
-                  _cameraController,
-                  child: ValueListenableBuilder<DetectionResult?>(
-                    valueListenable: _detectionResult,
-                    builder: (context, detection, child) {
-                      if (detection == null) {
-                        return const SizedBox();
-                      }
-
-                      return CustomPaint(
-                        size: Size(width, height),
-                        willChange: true,
-                        painter: DetectionResultsPainter(
-                          detection,
-                          currentFps,
-                          totalFps / fpsCount,
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ),
-            );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+      body: ValueListenableBuilder<DetectionResult?>(
+        valueListenable: _detectionResult,
+        builder: (context, detection, child) {
+          if (detection == null) {
+            return const SizedBox();
           }
+
+          final imageWidth = detection.imageWidth.toDouble();
+          final screenWidth = MediaQuery.of(context).size.width;
+          final width = math.min(imageWidth, screenWidth);
+
+          // percentual height of the screen to be used for the image
+          final height =
+              width * (detection.imageHeight) / (detection.imageWidth);
+
+          return ValueListenableBuilder<bool>(
+            valueListenable: _cameraInitialized,
+            builder: (context, cameraInitialized, child) {
+              if (cameraInitialized) {
+                return SizedBox(
+                  width: width,
+                  height: height,
+                  child: FittedBox(
+                    child: Stack(
+                      fit: StackFit.passthrough,
+                      children: [
+                        SizedBox(
+                          width: width,
+                          height: height,
+                          child: CameraPreview(_cameraController),
+                        ),
+                        Transform.scale(
+                          scale: width / imageWidth,
+                          alignment: Alignment.topLeft,
+                          child: CustomPaint(
+                            size: Size(width, height),
+                            painter: DetectionResultsPainter(
+                              detection,
+                              currentFps,
+                              totalFps / fpsCount,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
+          );
         },
       ),
     );

@@ -90,7 +90,6 @@ public class NcnnPlugin implements FlutterPlugin, MethodCallHandler {
 
                 // start timer
                 long startTime = System.currentTimeMillis();
-                // Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
                 BitmapFactory.Options bfo = new BitmapFactory.Options();
                 bfo.inPreferredConfig = Bitmap.Config.ARGB_8888;
                 bfo.inMutable = true;   // this makes an mutable bitmap
@@ -150,10 +149,6 @@ public class NcnnPlugin implements FlutterPlugin, MethodCallHandler {
                 FlutterImagePlane yPlaneObj = FlutterImagePlane.fromMap(yPlane);
                 FlutterImagePlane uPlaneObj = FlutterImagePlane.fromMap(uPlane);
                 FlutterImagePlane vPlaneObj = FlutterImagePlane.fromMap(vPlane);
-
-                // BitmapResult bitmapResult = imagePlanesToBitmap(new FlutterImagePlane[]{yPlaneObj, uPlaneObj, vPlaneObj}, imageWidth, imageHeight);
-                // image = bitmapResult.bytes;
-                // bitmap = bitmapResult.bitmap;
 
                 // concatenate the byte arrays
                 byte[] yBytes = yPlaneObj.bytes;

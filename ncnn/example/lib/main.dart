@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> {
             ElevatedButton(
               onPressed: () async {
                 try {
-                  const name = 'yolo-fastest-opt';
+                  const name = 'model';
                   await NcnnPlatform.instance.initialize(
                     binFile: 'assets/$name.bin',
                     paramFile: 'assets/$name.param',

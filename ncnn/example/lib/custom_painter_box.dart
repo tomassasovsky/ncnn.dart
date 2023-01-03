@@ -12,7 +12,7 @@ import 'package:ncnn/ncnn.dart';
 import 'package:ncnn_example/labels.dart';
 
 class DetectionResultsPainter extends CustomPainter {
-  const DetectionResultsPainter(
+  DetectionResultsPainter(
     this.result,
     this.currentFps,
     this.avgFps,
@@ -21,11 +21,16 @@ class DetectionResultsPainter extends CustomPainter {
   final DetectionResult result;
   final double currentFps;
   final double avgFps;
+  double _textSize = 0;
 
   @override
   void paint(Canvas canvas, Size size) {
-    // final scale = size.width / result.imageWidth;
-    // canvas.scale(scale);
+    // get the image size
+    final imageSize =
+        Size(result.imageWidth.toDouble(), result.imageHeight.toDouble());
+
+    // get the adapted text size
+    _textSize = getAdaptedSize(size, imageSize, 12);
 
     final detectionTime =
         result.detectiontime.inMilliseconds.toStringAsFixed(2);
@@ -58,9 +63,14 @@ class DetectionResultsPainter extends CustomPainter {
           fullDetectionTimeTextSize.height,
     );
 
+    final adaptedWidth = getAdaptedSize(size, imageSize, imageSize.width);
+    final adaptedHeight = getAdaptedSize(size, imageSize, imageSize.height);
+
+    final adaptedSize = Size(adaptedWidth, adaptedHeight);
+
     final fpsTextSize = drawRightSideText(
       canvas,
-      size,
+      adaptedSize,
       'FPS: ${currentFps.toStringAsFixed(2)}',
       0,
       0,
@@ -68,7 +78,7 @@ class DetectionResultsPainter extends CustomPainter {
 
     drawRightSideText(
       canvas,
-      size,
+      adaptedSize,
       'Average FPS: ${avgFps.toStringAsFixed(2)}',
       0,
       fpsTextSize.height,
@@ -113,7 +123,7 @@ class DetectionResultsPainter extends CustomPainter {
           text: '$label $score%',
           style: TextStyle(
             color: box.color,
-            fontSize: 20,
+            fontSize: _textSize,
           ),
         ),
         textDirection: TextDirection.ltr,
@@ -135,9 +145,10 @@ class DetectionResultsPainter extends CustomPainter {
     final textPainter = TextPainter(
       text: TextSpan(
         text: text,
-        style: const TextStyle(
+        style: TextStyle(
           color: Colors.white,
-          fontSize: 20,
+          fontSize: _textSize,
+          backgroundColor: Colors.black.withOpacity(0.5),
         ),
       ),
       textDirection: TextDirection.ltr,
@@ -156,16 +167,23 @@ class DetectionResultsPainter extends CustomPainter {
     double y,
   ) {
     final textPainter = TextPainter(
+      textWidthBasis: TextWidthBasis.longestLine,
       text: TextSpan(
         text: text,
-        style: const TextStyle(
+        style: TextStyle(
           color: Colors.white,
-          fontSize: 20,
+          fontSize: _textSize,
+          backgroundColor: Colors.black.withOpacity(0.5),
         ),
       ),
+      textAlign: TextAlign.right,
       textDirection: TextDirection.ltr,
     )..layout();
-    textPainter.paint(canvas, Offset(size.width - textPainter.width, y));
+
+    textPainter.paint(
+      canvas,
+      Offset(result.imageWidth - textPainter.width, y),
+    );
 
     return textPainter.size;
   }
@@ -175,4 +193,17 @@ class DetectionResultsPainter extends CustomPainter {
 
   @override
   bool shouldRebuildSemantics(DetectionResultsPainter oldDelegate) => true;
+
+  double getAdaptedSize(
+    Size size,
+    Size imageSize,
+    double textSize,
+  ) {
+    final width = imageSize.width / size.width;
+    final height = imageSize.height / size.height;
+
+    final adaptedSize = math.max(width, height) * textSize;
+
+    return adaptedSize;
+  }
 }
